@@ -227,7 +227,7 @@ g3_3
 
 
 
-##4.MarketingSpend Variable
+##4.avg_ticket_fare Variable
 
 g4_1<-ggplot(data = df, aes(x = MarketingSpend , y = ..density..)) + 
   geom_histogram(binwidth =1500, color = "black", fill = "lightblue") +
@@ -240,39 +240,39 @@ g4_2<-ggplot(data = df, aes(x = MarketingSpend )) +
 
 g4_1|g4_2
 
-#from looking at the histogram it seems like the MarketingSpend Variable is also normally 
+#from looking at the histogram it seems like the avg_ticket_fare Variable is also normally 
 #distributed as the bell shape is present in the histogram but we need to clarify this claim using several normality tests and Q-Q plot. 
 
 #hypo
-# H0: MarketingSpend variable follows a normal distribution
-# H1: MarketingSpend variable does follows a normal distribution
+# H0: avg_ticket_fare variable follows a normal distribution
+# H1: avg_ticket_fare variable does follows a normal distribution
 
 
 #1.Shapiro-Wilk Test
-shapiro.test(df$MarketingSpend)
+shapiro.test(df$avg_ticket_fare)
 
 #since p-value = 0.5479 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is
-#shapiro-wilk test suggests that our MarketingSpend variable is normally distributed.
+#shapiro-wilk test suggests that our avg_ticket_fare variable is normally distributed.
 
 
 #2.Anderson-Darling Test
-ad.test(df$MarketingSpend)
+ad.test(df$avg_ticket_fare)
 
 #since p-value = 0.4406 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is
-#Anderson-Darling Test suggests that our MarketingSpend variable is normally distributed.
+#Anderson-Darling Test suggests that our avg_ticket_fare variable is normally distributed.
 
-#since both tests suggest that MarketingSpend is normally distributed we can verify this claim
-#one more time using a graphical method which is Q-Q plot
+#since both tests suggest that avg_ticket_fare is normally distributed we can verify this claim
+#one more time using a Q-Q plot
 
 
 #3.Q-Q plot
 
-g4_3<-ggqqplot(df, x = "MarketingSpend", 
+g4_3<-ggqqplot(df, x = "avg_ticket_fare", 
                color = "blue",              
                ggtheme = theme_minimal())   
 g4_3
 
-#from the Q-Q we can see that our MarketingSpend variable is normally
+#from the Q-Q we can see that our avg_ticket_fare variable is normally
 #distributed as it mostly align with the theoretical normal line and there almost no deviances
 # from theoretical normal line as shown in the Q-Q plot. and also most of 
 #data points are inside the confidence interval region, this suggest our MarketingSpend variable is
