@@ -45,8 +45,8 @@ df %>% summary()
 
 
 
-# Average Ticket Fare spans from 3,058 to 33,146, with a median of 19,666 and a mean of 19,783.
-# The first and third quartiles are 16,380 and 23,392, respectively. 
+# Average Ticket Fare spans from 142.1 to 355.3, with a median of 250.9 and a mean of 250.4.
+# The first and third quartiles are 221.7 and 277.4, respectively.
 
 
 # Flight Frequency values range from 71.52 to 170.54, with a median of 122.61 and a mean of 122.57. 
@@ -303,7 +303,7 @@ shapiro.test(df$flight_frequency)
 #2.Anderson-Darling Test
 ad.test(df$flight_frequency)
 
-#since p-value = 2.336 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is
+#since p-value = 0.336 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is
 #Anderson-Darling test also suggests that our flight_frequency variable is normally distributed.
 
 #since both tests suggest that flight_frequency is normally distributed we can verify this claim
@@ -375,7 +375,7 @@ g6_3
 
 ##7.passenger_demand(Target) Variable
 
-g7_1<-ggplot(data = df, aes(x = route_distance, y = ..density..)) + 
+g7_1<-ggplot(data = df, aes(x = passenger_demand,y = ..density..)) + 
   geom_histogram(bins =20, color = "black", fill = "blue") +
   geom_density(color = "red", size = 1.0)
 
@@ -393,14 +393,14 @@ g7_1
 #1.Shapiro-Wilk Test
 shapiro.test(df$passenger_demand)
 
-#since p-value = 0.4249 < 0.05(alpha) we fail to reject our null hypothesis(H0). that is
+#since p-value = 0.4249 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is
 #shapiro-wilk test suggests that our passenger_demand variable is normally distributed.
 
 
 #2.Anderson-Darling Test
 ad.test(df$passenger_demand)
 
-#since p-value = 1.195e-08 < 0.05(alpha) we fail to reject our null hypothesis(H0). that is
+#since p-value = 0.3862 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is
 #Anderson-Darling test also suggests that our passenger_demand variable is normally distributed.
 
 #since both tests suggest that passenger_demand is normally distributed we can verify this claim
@@ -509,7 +509,7 @@ cor.test(df$avg_income, df$passenger_demand, method = "kendall")
 #3.Spearman test
 cor.test(df$avg_income, df$passenger_demand, method = "spearman")
 #rho  = 0.04349359 suggests that avg_income and passenger_demand are independent
-# and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.4975 > 0.05)
+# and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.5405 > 0.05)
 
 #since all tests suggest that avg_income and passenger_demand are independent(fail to reject H0 because all p values > 0.05)
 #we can conclude that there is no association between avg_income and passenger_demand.
@@ -760,7 +760,17 @@ AIC(lm6)
 #because the AIC increased in lm5 is considerably low.
 #so the regression equation would be
 
-# 
-# passenger_demand = 0.4133(airport_traffic) + 0.1483(fuel_price) - 0.08615(vg_ticket_fare) + 0.07601(flight_frequency) 
+
+# passenger_demand = 0.4133(airport_traffic) + 0.1483(fuel_price) - 0.08615(avg_ticket_fare) + 0.07601(flight_frequency) 
 
 
+#Looking at the regression results, passenger demand in Sri Lanka is clearly driven more by infrastructure limits than by 
+#ticket pricing. Overall airport traffic turned out to be the main growth factor, carrying the highest positive coefficient 
+#in our model (0.4133, p < 0.001$). This proves that expanding physical capacity. specifically speeding up the BIA Phase II 
+#expansion project should be the top priority for aviation authorities like AASL. The second coefficient for fuel price (0.1483) 
+#likely reflects broader economic growth periods where high overall travel demand coincided with rising fuel costs, suggesting that 
+#state backed fuel hedging programs could help protect local airlines from global oil shocks. Meanwhile, average ticket fares showed a 
+#slight negative coefficient (-0.0862), which aligns with standard price elasticity. however, its impact is secondary, meaning airlines 
+#can easily handle this using dynamic yield management to attract budget tourists without hurting business travel revenue. Lastly, the 
+#positive coefficient for flight frequency (0.0760) highlights the value of schedule convenience, advising slot management teams to boost
+#weekly flight frequencies to key source markets during peak tourism months.
