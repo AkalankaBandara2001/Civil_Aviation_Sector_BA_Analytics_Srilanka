@@ -66,7 +66,7 @@ df %>% summary()
 df %>% head(10)
 
 
-###univariant analysis
+### 1.univariant analysis
 
 # we will analyze each variable graphically and get initial insights from graphs then
 # we develop hypotheses about variable distributions using graphical insights and then we 
@@ -229,16 +229,11 @@ g3_3
 
 ##4.avg_ticket_fare Variable
 
-g4_1<-ggplot(data = df, aes(x = MarketingSpend , y = ..density..)) + 
-  geom_histogram(binwidth =1500, color = "black", fill = "lightblue") +
-  geom_density(color = "red", size = 1.5)
+g4_1<-ggplot(data = df, aes(x = avg_ticket_fare, y = ..density..)) + 
+  geom_histogram(bins =20, color = "black", fill = "lightblue") +
+  geom_density(color = "red", size = 1.0)
 
-
-g4_2<-ggplot(data = df, aes(x = MarketingSpend )) + 
-  geom_histogram(binwidth = 1500, color = "black", fill = "lightblue") +
-  geom_freqpoly(binwidth = 1500, color = "red", size = 1.5)
-
-g4_1|g4_2
+g4_1
 
 #from looking at the histogram it seems like the avg_ticket_fare Variable is also normally 
 #distributed as the bell shape is present in the histogram but we need to clarify this claim using several normality tests and Q-Q plot. 
@@ -251,15 +246,15 @@ g4_1|g4_2
 #1.Shapiro-Wilk Test
 shapiro.test(df$avg_ticket_fare)
 
-#since p-value = 0.5479 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is
-#shapiro-wilk test suggests that our avg_ticket_fare variable is normally distributed.
+#since p-value =  0.7774 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is
+#shapiro-wilk test strongly suggests that our avg_ticket_fare variable is normally distributed.
 
 
 #2.Anderson-Darling Test
 ad.test(df$avg_ticket_fare)
 
-#since p-value = 0.4406 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is
-#Anderson-Darling Test suggests that our avg_ticket_fare variable is normally distributed.
+#since p-value = 0.8683 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is
+#Anderson-Darling Test also suggests that our avg_ticket_fare variable is normally distributed.
 
 #since both tests suggest that avg_ticket_fare is normally distributed we can verify this claim
 #one more time using a Q-Q plot
@@ -274,224 +269,429 @@ g4_3
 
 #from the Q-Q we can see that our avg_ticket_fare variable is normally
 #distributed as it mostly align with the theoretical normal line and there almost no deviances
-# from theoretical normal line as shown in the Q-Q plot. and also most of 
-#data points are inside the confidence interval region, this suggest our MarketingSpend variable is
+#from theoretical normal line as shown in the Q-Q plot. and also most of 
+#data points are inside the confidence interval region, this suggest our avg_ticket_fare variable is
 #normally distributed.
 
 
 
 
-##5.StaffCount Variable
+##5.flight_frequency Variable
 
-g5_1<-ggplot(data = df, aes(x = StaffCount , y = ..density..)) + 
-  geom_histogram(binwidth =3.5, color = "black", fill = "lightblue") +
-  geom_density(color = "red", size = 1.5)
+g5_1<-ggplot(data = df, aes(x = flight_frequency, y = ..density..)) + 
+  geom_histogram(bins =20, color = "black", fill = "lightblue") +
+  geom_density(color = "red", size = 1.0)
 
 g5_1
 
-g5_2<-ggplot(data = df, aes(x = StaffCount )) + 
-  geom_histogram(binwidth = 3.5, color = "black", fill = "lightblue") +
-  geom_freqpoly(binwidth = 3.5, color = "red", size = 1.5)
-
-g5_1|g5_2
-
-#from looking at the histogram it seems like the StaffCount Variable is not normally 
-#distributed as the bell shape is not present in histogram(it most likely uniformly distributed). 
+#from looking at the histogram it seems like the flight_frequency Variable is normally 
+#distributed as the bell shape is present in histogram 
 #but we need to clarify this claim using several normality tests and Q-Q plot. 
 
 #hypo
-# H0: StaffCount variable follows a normal distribution
-# H1: StaffCount variable does follows a normal distribution
+# H0: flight_frequency variable follows a normal distribution
+# H1: flight_frequency variable does follows a normal distribution
 
 
 #1.Shapiro-Wilk Test
-shapiro.test(df$StaffCount)
+shapiro.test(df$flight_frequency)
 
-#since p-value = 1.106e-08 < 0.05(alpha) we reject our null hypothesis(H0). that is
-#shapiro-wilk test suggests that our StaffCount variable is not normally distributed.
+#since p-value = 0.6003 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is
+#shapiro-wilk test suggests that our flight_frequency variable is normally distributed.
 
 
 #2.Anderson-Darling Test
-ad.test(df$StaffCount)
+ad.test(df$flight_frequency)
 
-#since p-value = 2.814e-10 < 0.05(alpha) we reject our null hypothesis(H0). that is
-#Anderson-Darling Test suggests that our StaffCount variable is not normally distributed.
+#since p-value = 2.336 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is
+#Anderson-Darling test also suggests that our flight_frequency variable is normally distributed.
 
-#since both tests suggest that StaffCount is not normally distributed we can verify this claim
+#since both tests suggest that flight_frequency is normally distributed we can verify this claim
 #one more time using a graphical method which is Q-Q plot.
 
 
 #3.Q-Q plot
 
-g5_3<-ggqqplot(df, x = "StaffCount", 
+g5_3<-ggqqplot(df, x = "flight_frequency", 
                color = "blue",              
                ggtheme = theme_minimal())   
 g5_3
 
-#from the Q-Q we can see that our StaffCount variable is not normally distributed
-#as most data points fall outside confidence region of theoretical normal line. and there are huge
-#deviance from theoretical normal line in the tails as shown in the Q-Q plot.this suggest our 
-#StaffCount variable is not normally distributed.
+#from the Q-Q we can see that our flight_frequency variable is normally
+#distributed as it mostly align with the theoretical normal line and there almost no deviances
+#from theoretical normal line as shown in the Q-Q plot. and also most of 
+#data points are inside the confidence interval region, this suggest our flight_frequency variable is
+#normally distributed.
 
-##6.
+##6.route_distance
 
+g6_1<-ggplot(data = df, aes(x = route_distance, y = ..density..)) + 
+  geom_histogram(bins =20, color = "black", fill = "lightblue") +
+  geom_density(color = "red", size = 1.0)
 
+g6_1
 
-
-
-##7.GuestSatisfactionScore Variable
-
-g7_1<-ggplot(data = df, aes(x = GuestSatisfactionScore , y = ..density..)) + 
-  geom_histogram(binwidth =0.5, color = "black", fill = "lightblue") +
-  geom_density(color = "red", size = 1.5)
-
-
-g7_2<-ggplot(data = df, aes(x = GuestSatisfactionScore )) + 
-  geom_histogram(binwidth = 0.5, color = "black", fill = "lightblue") +
-  geom_freqpoly(binwidth = 0.5, color = "red", size = 1.5)
-
-g7_1|g7_2
-
-#from looking at the histogram it seems like the GuestSatisfactionScore Variable is also normally 
-#distributed as the bell shape is present in the histogram but we need to clarify this claim using several normality tests and Q-Q plot. 
+#from looking at the histogram it seems like the route_distance Variable is normally 
+#distributed as the bell shape is present in histogram 
+#but we need to clarify this claim using several normality tests and Q-Q plot. 
 
 #hypo
-# H0: GuestSatisfactionScore variable follows a normal distribution
-# H1: GuestSatisfactionScore variable does follows a normal distribution
+# H0: route_distance variable follows a normal distribution
+# H1: route_distance variable does follows a normal distribution
 
 
 #1.Shapiro-Wilk Test
-shapiro.test(df$GuestSatisfactionScore)
+shapiro.test(df$route_distance)
 
-#since p-value = 0.1033 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is
-#Shapiro-wilk test suggests that our GuestSatisfactionScore variable is normally distributed.
+#since p-value = 0.4398 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is
+#shapiro-wilk test suggests that our route_distance variable is normally distributed.
 
 
-#since Shapiro-wilk test suggests that GuestSatisfactionScore is normally distributed we can verify this claim
-#one more time using a graphical method which is Q-Q plot
+#2.Anderson-Darling Test
+ad.test(df$route_distance)
+
+#since p-value = 0.6498 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is
+#Anderson-Darling test also suggests that our route_distance variable is normally distributed.
+
+#since both tests suggest that route_distance is normally distributed we can verify this claim
+#one more time using a graphical method which is Q-Q plot.
 
 
 #3.Q-Q plot
 
-g7_3<-ggqqplot(df, x = "GuestSatisfactionScore", 
+g6_3<-ggqqplot(df, x = "route_distance", 
                color = "blue",              
                ggtheme = theme_minimal())   
-g7_3
+g6_3
 
-#from the Q-Q plot we can see that our GuestSatisfactionScore variable is normally
-#distributed as it mostly align with the theoretical normal line and even though there are some deviances
-# from theoretical normal line as shown in the Q-Q plot. and also most of 
-#data points are inside the confidence interval region, this suggest our GuestSatisfactionScore variable is
+#from the Q-Q we can see that our route_distance variable is normally
+#distributed as it mostly align with the theoretical normal line and there almost no deviances
+#from theoretical normal line as shown in the Q-Q plot. and also most of 
+#data points are inside the confidence interval region, this suggest our route_distance variable is
 #normally distributed.
 
 
 
 
-##8.LoyaltyMembers Variable
+##7.passenger_demand(Target) Variable
 
-g8_1<-ggplot(data = df, aes(x = LoyaltyMembers , y = ..density..)) + 
-  geom_histogram(binwidth =400, color = "black", fill = "lightblue") +
-  geom_density(color = "red", size = 1.5)
+g7_1<-ggplot(data = df, aes(x = route_distance, y = ..density..)) + 
+  geom_histogram(bins =20, color = "black", fill = "blue") +
+  geom_density(color = "red", size = 1.0)
 
+g7_1
 
-g8_2<-ggplot(data = df, aes(x = LoyaltyMembers )) + 
-  geom_histogram(binwidth = 400, color = "black", fill = "lightblue") +
-  geom_freqpoly(binwidth = 400, color = "red", size = 1.5)
-
-g8_1|g8_2
-
-#from looking at the histogram it seems like the LoyaltyMembers Variable is also normally 
-#distributed as the bell shape is present in the histogram but we need to clarify this claim using several normality tests and Q-Q plot. 
-
-#hypo
-# H0: LoyaltyMembers variable follows a normal distribution
-# H1: LoyaltyMembers variable does follows a normal distribution
-
-
-#1.Shapiro-Wilk Test
-shapiro.test(df$LoyaltyMembers)
-
-#since p-value = 8.761e-06 < 0.05(alpha) we reject our null hypothesis(H0). that is
-#Shapiro-wilk test suggests that our LoyaltyMembers variable is not normally distributed.
-
-#**this shows us heavily relying on graphical interpretations sometimes not as graphs shows
-#likes LoyaltyMembers variable is normally distributed but in reality it is not
-
-#2.Anderson-Darling Test
-ad.test(df$LoyaltyMembers)
-
-#since p-value = 2.814e-10 < 0.05(alpha) we reject our null hypothesis(H0). that is
-#Anderson-Darling Test suggests that our LoyaltyMembers variable is not normally distributed.
-
-#since both tests suggest that LoyaltyMembers is not normally distributed we can verify this claim
-#one more time using a graphical method which is Q-Q plot.
-
-
-#3.Q-Q plot
-
-g8_3<-ggqqplot(df, x = "LoyaltyMembers", 
-               color = "blue",              
-               ggtheme = theme_minimal())   
-g8_3
-
-#from the Q-Q plot we can see that our LoyaltyMembers variable is not normally distributed
-#as some data points from the starting tail fall outside confidence region of theoretical normal line. 
-#this suggest our LoyaltyMembers variable is not normally distributed.
-
-
-
-
-##9.Revenue(Target) Variable
-
-g9_1<-ggplot(data = df, aes(x = Revenue , y = ..density..)) + 
-  geom_histogram(binwidth =50000, color = "black", fill = "lightblue") +
-  geom_density(color = "red", size = 1.5)
-
-g9_1
-
-g9_2<-ggplot(data = df, aes(x = Revenue )) + 
-  geom_histogram(binwidth = 50000, color = "black", fill = "lightblue") +
-  geom_freqpoly(binwidth = 50000, color = "red", size = 1.5)
-
-g9_1|g9_2
-
-#from looking at the histogram it seems like the Revenue Variable is not normally 
-#distributed as it is positively skewed which can be seen in the histogram. 
+#from looking at the histogram it seems like the passenger_demand(Target) Variable is normally 
+#distributed as follows the symmetric bell shape which can be seen in the histogram. 
 #but we need to clarify this claim using several normality tests and Q-Q plot. 
 
 #hypo
-# H0: Revenue variable follows a normal distribution
-# H1: Revenue variable does follows a normal distribution
+# H0: passenger_demand variable follows a normal distribution
+# H1: passenger_demand variable does follows a normal distribution
 
 
 #1.Shapiro-Wilk Test
-shapiro.test(df$Revenue)
+shapiro.test(df$passenger_demand)
 
-#since p-value = 3.714e-09 < 0.05(alpha) we reject our null hypothesis(H0). that is
-#shapiro-wilk test suggests that our Revenue variable is not normally distributed.
+#since p-value = 0.4249 < 0.05(alpha) we fail to reject our null hypothesis(H0). that is
+#shapiro-wilk test suggests that our passenger_demand variable is normally distributed.
 
 
 #2.Anderson-Darling Test
-ad.test(df$Revenue)
+ad.test(df$passenger_demand)
 
-#since p-value = 1.195e-08 < 0.05(alpha) we reject our null hypothesis(H0). that is
-#Anderson-Darling Test suggests that our Revenue variable is not normally distributed.
+#since p-value = 1.195e-08 < 0.05(alpha) we fail to reject our null hypothesis(H0). that is
+#Anderson-Darling test also suggests that our passenger_demand variable is normally distributed.
 
-#since both tests suggest that Revenue is not normally distributed we can verify this claim
-#one more time using a graphical method which is Q-Q plot.
+#since both tests suggest that passenger_demand is normally distributed we can verify this claim
+#one more time using a Q-Q plot.
 
 
 #3.Q-Q plot
 
-g9_3<-ggqqplot(df, x = "Revenue", 
+g7_3<-ggqqplot(df, x = "passenger_demand", 
                color = "blue",              
                ggtheme = theme_minimal())   
-g9_3
+g7_3
 
-# from the Q-Q we can see that our Revenue variable is not normally distributed
-# as most data points fall outside confidence region of theoretical normal line. and there are huge
-# deviance from theoretical normal line in the starting tail as shown in the Q-Q plot.this suggest our
-# Revenue variable is not normally distributed.
+#from the Q-Q we can see that our passenger_demand variable is normally
+#distributed as it mostly align with the theoretical normal line and there almost no deviances
+#from theoretical normal line as shown in the Q-Q plot. and also most of 
+#data points are inside the confidence interval region, this suggest our passenger_demand(Target) variable is
+#normally distributed.
+
+
+
+
+
+
+### 2.Bivariate Analysis(Correlation analysis)
+
+#in this section we will analyse the relationship between our target variable(Total Passenger Demand) 
+#and each independent variable using graphical methods and some correlation tests.
+
+#here we will first inspect what kind of association is there between all independent variables and dependent variable using scatter plots.
+#then we will use pearson correlation test as it shows linear association between two variables. but from the scatter plots
+#if there seems to be a non linear relationship we will use kendal's tau test and spearman rho test statistics to further measeure the association.
+
+
+#note that all test statistic scores are in between -1 and 1
+#and,
+# 1 suggests strong positive correlation
+# 0 suggests no correlation at all(2 variables are independent)
+# -1 suggests strong negative correlation
+# and magnitude of score suggests how strong is the relationship and sign suggests the relationship
+# negative or positive(ex: +0.9 means a strong positive association, -0.9 represents a strong negatvie association).
+
+df %>% summary()
+
+##1.Revenue Vs RoomsAvailible
+
+g10<-ggplot(data=df,aes(x=RoomsAvailable,y=Revenue))+geom_point(color="black")+
+  geom_smooth(method = "lm", color = "blue", se = FALSE)+labs(
+    title = "Revenue Vs RoomsAvailable"
+  )
+g10
+
+#from the scatter plot we can see that Revenue and RoomsAvalibe have a somewhat strong
+#positive relationship
+#we can clarify this using a above mentioned test
+
+#hypo
+#H0: Revenue and RoomsAvailable are independent
+#H1: Revenue and RoomsAvailable are not independent
+
+#1.Kendall's tau test
+cor.test(df$Revenue, df$RoomsAvailable, method = "kendall")
+
+#tau = 0.7056502 this suggest that Revenue and RoomsAvailable has a strong association.
+
+#2.Spearman test
+cor.test(df$Revenue, df$RoomsAvailable, method = "spearman")
+
+#rho = 0.8836842, this value suggest that Revenue and RoomsAvailable has a strong associated.
+
+#since both tests suggest that Revenue and RoomsAvailable are not independent(fail to reject of H0) 
+#and they have a strong positive relationship. we can say that the relationship is linear by looking 
+#at the scatter plot.
+
+
+
+##2.Revenue Vs OccupancyRate
+
+g11<-ggplot(data=df,aes(x=OccupancyRate,y=Revenue))+geom_point(color="black")+
+  geom_smooth(method = "lm", color = "blue", se = FALSE)+labs(
+    title = "Revenue Vs OccupancyRate"
+  )
+g11
+
+#from the scatter plot we can see that Revenue and OccupancyRate have a weak 
+#positive relationship
+#we can clarify this using a above mentioned test
+
+#hypo
+#H0: Revenue and OccupancyRate are independent
+#H1: Revenue and OccupancyRate are not independent
+
+#1.Kendall's tau test
+cor.test(df$Revenue, df$OccupancyRate, method = "kendall")
+
+#tau = 0.1899001 this suggest that Revenue and OccupancyRate have a weak positive association.
+
+#2.Spearman test
+cor.test(df$Revenue, df$OccupancyRate, method = "spearman")
+
+#rho = 0.2746971, this value suggest that Revenue and OccupancyRate have a weak positive association.
+
+#since both tests suggest that Revenue and OccupancyRate are not independent(fail to reject of H0) 
+#and they have a weak positive relationship. we can say that the relationship is linear by looking 
+#at the scatter plot.
+
+
+
+##3.Revenue Vs ADR
+
+g12<-ggplot(data=df,aes(x=ADR,y=Revenue))+geom_point(color="black")+
+  geom_smooth(method = "lm", color = "blue", se = FALSE)+labs(
+    title = "Revenue Vs ADR"
+  )
+g12
+
+#from the scatter plot we can see that Revenue and ADR have a weak 
+#positive relationship
+#we can clarify this using a above mentioned test
+
+#hypo
+#H0: Revenue and ADR are independent
+#H1: Revenue and ADR are not independent
+
+#1.Kendall's tau test
+cor.test(df$Revenue, df$ADR, method = "kendall")
+
+#tau = 0.2255411 this suggest that Revenue and ADR have a weak positive association.
+
+#2.Spearman test
+cor.test(df$Revenue, df$ADR, method = "spearman")
+
+#rho = 0.3290704, this value suggest that Revenue and ADR have a weak positive association.
+
+#since both tests suggest that Revenue and ADR are not independent(fail to reject of H0) 
+#and they have a weak positive relationship. we can say that the relationship is linear by looking 
+#at the scatter plot.
+
+
+
+
+##4.Revenue Vs MarketingSpend
+
+g13<-ggplot(data=df,aes(x=MarketingSpend,y=Revenue))+geom_point(color="black")+
+  geom_smooth(method = "lm", color = "blue", se = FALSE)+labs(
+    title = "Revenue Vs MarketingSpend"
+  )
+g13
+
+#from the scatter plot we can see that Revenue and MarketingSpend have a weak 
+#positive relationship. almost looks like has no relations at all.
+#we can clarify this using a above mentioned test
+
+#hypo
+#H0: Revenue and MarketingSpend are independent
+#H1: Revenue and MarketingSpend are not independent
+
+#1.Kendall's tau test
+cor.test(df$Revenue, df$MarketingSpend, method = "kendall")
+
+#tau = -0.001731463 this suggest that Revenue and MarketingSpend have a weak negative association.
+
+#2.Spearman test
+cor.test(df$Revenue, df$MarketingSpend, method = "spearman")
+
+#rho = -0.002505322, this value suggest that Revenue and MarketingSpend have a weak negative association.
+
+#since both tests suggest that Revenue and MarketingSpend are not independent(fail to reject of H0) 
+#and they have a weak negative relationship. almost like there is no relationship at all.
+
+
+
+##5.Revenue Vs StaffCount
+
+g14<-ggplot(data=df,aes(x=StaffCount,y=Revenue))+geom_point(color="black")+
+  geom_smooth(method = "lm", color = "blue", se = FALSE)+labs(
+    title = "Revenue Vs StaffCount"
+  )
+g14
+
+#from the scatter plot we can see that Revenue and StaffCount have a strong
+#positive relationship
+#we can clarify this using a above mentioned test
+
+#hypo
+#H0: Revenue and StaffCount are independent
+#H1: Revenue and StaffCount are not independent
+
+#1.Kendall's tau test
+cor.test(df$Revenue, df$StaffCount, method = "kendall")
+
+#tau = 0.6820105 this suggest that Revenue and StaffCount have a strong positive association.
+
+#2.Spearman test
+cor.test(df$Revenue, df$StaffCount, method = "spearman")
+
+#rho = 0.8651238, this value suggest that Revenue and StaffCount have a strong positive association.
+
+#since both tests suggest that Revenue and StaffCount are not independent(fail to reject of H0) 
+#and they have a strong positive relationship. we can say that the relationship is linear by looking 
+#at the scatter plot.
+
+
+
+##7.Revenue Vs GuestSatisfactionScore
+
+g16<-ggplot(data=df,aes(x=GuestSatisfactionScore,y=Revenue))+geom_point(color="black")+
+  geom_smooth(method = "lm", color = "blue", se = FALSE)+
+  labs(
+    title = "Revenue Vs GuestSatisfactionScore"
+  )
+g16
+
+#from the scatter plot we can see that Revenue and GuestSatisfactionScore have a weak
+#positive relationship
+#we can clarify this using a above mentioned test
+
+#hypo
+#H0: Revenue and GuestSatisfactionScoret are independent
+#H1: Revenue and GuestSatisfactionScore are not independent
+
+#1.Kendall's tau test
+cor.test(df$Revenue, df$GuestSatisfactionScore, method = "kendall")
+
+#tau = 0.1074324  this suggest that Revenue and GuestSatisfactionScore have a weak positive association.
+
+#2.Spearman test
+cor.test(df$Revenue, df$GuestSatisfactionScore, method = "spearman")
+
+#rho = 0.156328, this value suggest that Revenue and GuestSatisfactionScore have a weak positive association.
+
+#since both tests suggest that Revenue and GuestSatisfactionScore are not independent(fail to reject of H0) 
+#and they have a weak positive relationship. we can say that the relationship is linear by looking 
+#at the scatter plot.
+
+
+
+
+##8.Revenue Vs LoyaltyMembers
+
+g17<-ggplot(data=df,aes(x=LoyaltyMembers,y=Revenue))+geom_point(color="black")+
+  geom_smooth(method = "lm", color = "blue", se = FALSE)+
+  labs(
+    title = "Revenue Vs LoyaltyMembers"
+  )
+g17
+
+#from the scatter plot we can see that Revenue and LoyaltyMembers have a strong
+#positive relationship
+#we can clarify this using a above mentioned test
+
+#hypo
+#H0: Revenue and LoyaltyMemberst are independent
+#H1: Revenue and LoyaltyMembers are not independent
+
+#1.Kendall's tau test
+cor.test(df$Revenue, df$LoyaltyMembers, method = "kendall")
+
+#tau = 0.1074324  this suggest that Revenue and LoyaltyMembers have a strong positive association.
+
+#2.Spearman test
+cor.test(df$Revenue, df$LoyaltyMembers, method = "spearman")
+
+#rho = 0.156328, this value suggest that Revenue and LoyaltyMembers have a strong positive association.
+
+#since both tests suggest that Revenue and LoyaltyMembers are not independent(fail to reject of H0) 
+#and they have a strong positive relationship. we can say that the relationship is linear by looking 
+#at the scatter plot.
+
+
+##now we will see how each variable is correlated with other using a correlation map
+
+df %>% str()
+corr=df %>% select(-c("HotelQualityRank")) %>% relocate(Revenue, .after = last_col())
+
+corr_matrix <- cor(corr, use = "complete.obs")
+
+ggcorrplot(corr_matrix, 
+           hc.order = TRUE, 
+           type = "lower",
+           outline.col = "black",
+           ggtheme = ggplot2::theme_minimal(),
+           colors = c("#6D9EC1", "white", "#E46726"),
+           lab = TRUE, lab_size = 3.6)
+
+
+#as we can see from the correlation map RoomsAvailable is highly corrlelated with StaffCount & LoyaltyMembers
+#and also LoyaltyMembers is also highly correlated with StaffCount.
+
+#so when including these variables together in regression modelling might produce less
+#accurate results as multicolinearity is present in the full model
 
 
 
