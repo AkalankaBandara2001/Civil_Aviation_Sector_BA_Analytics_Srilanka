@@ -439,242 +439,231 @@ g7_3
 #and,
 # 1 suggests strong positive correlation
 # 0 suggests no correlation at all(2 variables are independent)
-# -1 suggests strong negative correlation
+#-1 suggests strong negative correlation
 # and magnitude of score suggests how strong is the relationship and sign suggests the relationship
 # negative or positive(ex: +0.9 means a strong positive association, -0.9 represents a strong negatvie association).
 
 df %>% summary()
 
-##1.Revenue Vs RoomsAvailible
+##1.airport_traffic Vs passenger_demand
 
-g10<-ggplot(data=df,aes(x=RoomsAvailable,y=Revenue))+geom_point(color="black")+
-  geom_smooth(method = "lm", color = "blue", se = FALSE)+labs(
-    title = "Revenue Vs RoomsAvailable"
+g8<-ggplot(data=df,aes(x=airport_traffic,y=passenger_demand))+geom_point(color="blue")+
+  geom_smooth(method = "lm", color = "black", se = FALSE)+labs(
+    title = "airport_traffic Vs passenger_demand"
+  )
+g8
+
+#from the scatter plot we can see that airport_traffic and passenger_demand have a linear a
+#positive relationship we can clarify this using a above mentioned test
+
+#hypo
+#H0: airport_traffic and passenger_demand are independent
+#H1: airport_traffic and passenger_demand are not independent
+
+#1.Pearson test
+cor.test(df$airport_traffic, df$passenger_demand, method = "pearson")
+#r = 0.385401 suggests that airport_traffic and passenger_demand has a somewhat positive association
+# and it is significant at 5% significant level
+
+#2.Kendall's tau test
+cor.test(df$airport_traffic, df$passenger_demand, method = "kendall")
+#tau = 0.2518593  suggests that airport_traffic and passenger_demand has a somewhat positive association
+# and it is significant at 5% significant level
+
+#3.Spearman test
+cor.test(df$airport_traffic, df$passenger_demand, method = "spearman")
+#rho  = 0.3729573  suggests that airport_traffic and passenger_demand has a somewhat positive association
+# and it is significant at 5% significant level
+
+#since all tests suggest that airport_traffic and passenger_demand are not independent(reject H0 because all p values < 0.05) 
+#and they have a weak positive relationship. we can say that the relationship is mostly linear by looking 
+#at the scatter plot.
+
+
+
+##2.avg_income Vs passenger_demand
+
+g9<-ggplot(data=df,aes(x=avg_income,y=passenger_demand))+geom_point(color="blue")+
+  geom_smooth(method = "lm", color = "black", se = FALSE)+labs(
+    title = "avg_income Vs passenger_demand"
+  )
+g9
+
+#from the scatter plot we can see that avg_income and passenger_demand do not have an
+#association at all because the relationship line is almost a flat line
+
+#hypo
+#H0: avg_income and passenger_demand are independent
+#H1: avg_income and passenger_demand are not independent
+
+#1.Pearson test
+cor.test(df$avg_income, df$passenger_demand, method = "pearson")
+#r = 0.04954933 suggests that avg_income and passenger_demand are independent
+# and it is not significant(i.e. no significant association) at 5% significant level(p = 0.4859>0.05)
+
+#2.Kendall's tau test
+cor.test(df$avg_income, df$passenger_demand, method = "kendall")
+#tau = 0.03226131  suggests that avg_income and passenger_demand are independent
+# and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.4975 > 0.05)
+
+#3.Spearman test
+cor.test(df$avg_income, df$passenger_demand, method = "spearman")
+#rho  = 0.04349359 suggests that avg_income and passenger_demand are independent
+# and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.4975 > 0.05)
+
+#since all tests suggest that avg_income and passenger_demand are independent(fail to reject H0 because all p values > 0.05)
+#we can conclude that there is no association between avg_income and passenger_demand.
+
+
+
+
+##3.fuel_price Vs passenger_demand
+
+g10<-ggplot(data=df,aes(x=fuel_price,y=passenger_demand))+geom_point(color="blue")+
+  geom_smooth(method = "lm", color = "black", se = FALSE)+labs(
+    title = "fuel_price Vs passenger_demand"
   )
 g10
 
-#from the scatter plot we can see that Revenue and RoomsAvalibe have a somewhat strong
-#positive relationship
-#we can clarify this using a above mentioned test
+#from the scatter plot we can see that fuel_price and passenger_demand do not have an
+#association at all because the relationship line is almost a flat line
 
 #hypo
-#H0: Revenue and RoomsAvailable are independent
-#H1: Revenue and RoomsAvailable are not independent
+#H0: fuel_price and passenger_demand are independent
+#H1: fuel_price and passenger_demand are not independent
 
-#1.Kendall's tau test
-cor.test(df$Revenue, df$RoomsAvailable, method = "kendall")
+#1.Pearson test
+cor.test(df$fuel_price, df$passenger_demand, method = "pearson")
+#r = 0.08567551 suggests that fuel_price and passenger_demand are independent
+# and it is not significant(i.e. no significant association) at 5% significant level(p =  0.2277 > 0.05)
 
-#tau = 0.7056502 this suggest that Revenue and RoomsAvailable has a strong association.
+#2.Kendall's tau test
+cor.test(df$fuel_price, df$passenger_demand, method = "kendall")
+#tau = 0.03939698 suggests that fuel_price and passenger_demand are independent
+# and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.4074 > 0.05)
 
-#2.Spearman test
-cor.test(df$Revenue, df$RoomsAvailable, method = "spearman")
+#3.Spearman test
+cor.test(df$fuel_price, df$passenger_demand, method = "spearman")
+#rho  =0.059916 suggests that fuel_price and passenger_demand are independent
+# and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.399 > 0.05)
 
-#rho = 0.8836842, this value suggest that Revenue and RoomsAvailable has a strong associated.
-
-#since both tests suggest that Revenue and RoomsAvailable are not independent(fail to reject of H0) 
-#and they have a strong positive relationship. we can say that the relationship is linear by looking 
-#at the scatter plot.
-
+#since all tests suggest that fuel_price and passenger_demand are independent(fail to reject H0 because all p values > 0.05) 
+#we can conclude that there is no association between fuel_price and passenger_demand.
 
 
-##2.Revenue Vs OccupancyRate
 
-g11<-ggplot(data=df,aes(x=OccupancyRate,y=Revenue))+geom_point(color="black")+
-  geom_smooth(method = "lm", color = "blue", se = FALSE)+labs(
-    title = "Revenue Vs OccupancyRate"
+##4.avg_ticket_fare Vs passenger_demand
+
+g11<-ggplot(data=df,aes(x=avg_ticket_fare,y=passenger_demand))+geom_point(color="blue")+
+  geom_smooth(method = "lm", color = "black", se = FALSE)+labs(
+    title = "avg_ticket_fare Vs passenger_demand"
   )
 g11
 
-#from the scatter plot we can see that Revenue and OccupancyRate have a weak 
-#positive relationship
-#we can clarify this using a above mentioned test
+
+#from the scatter plot we can see that avg_ticket_fare and passenger_demand do not have an
+#association at all because the relationship line is almost a flat line
 
 #hypo
-#H0: Revenue and OccupancyRate are independent
-#H1: Revenue and OccupancyRate are not independent
+#H0: avg_ticket_fare and passenger_demand are independent
+#H1: avg_ticket_fare and passenger_demand are not independent
 
-#1.Kendall's tau test
-cor.test(df$Revenue, df$OccupancyRate, method = "kendall")
+#1.Pearson test
+cor.test(df$avg_ticket_fare, df$passenger_demand, method = "pearson")
+#r = -0.03039567 suggests that avg_ticket_fare and passenger_demand are independent
+# and it is not significant(i.e. no significant association) at 5% significant level(p = 0.6692 > 0.05)
 
-#tau = 0.1899001 this suggest that Revenue and OccupancyRate have a weak positive association.
+#2.Kendall's tau test
+cor.test(df$avg_ticket_fare, df$passenger_demand, method = "kendall")
+#tau = 0.007135678 suggests that avg_ticket_fare and passenger_demand are independent
+# and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.8807 > 0.05)
 
-#2.Spearman test
-cor.test(df$Revenue, df$OccupancyRate, method = "spearman")
+#3.Spearman test
+cor.test(df$avg_ticket_fare, df$passenger_demand, method = "spearman")
+#rho  =0.01307283 suggests that avg_ticket_fare and passenger_demand are independent
+# and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.8541 > 0.05)
 
-#rho = 0.2746971, this value suggest that Revenue and OccupancyRate have a weak positive association.
-
-#since both tests suggest that Revenue and OccupancyRate are not independent(fail to reject of H0) 
-#and they have a weak positive relationship. we can say that the relationship is linear by looking 
-#at the scatter plot.
-
+#since all tests suggest that avg_ticket_fare and passenger_demand are independent(fail to reject H0 because all p values > 0.05) 
+#we can conclude that there is no association between avg_ticket_fare and passenger_demand.
 
 
-##3.Revenue Vs ADR
 
-g12<-ggplot(data=df,aes(x=ADR,y=Revenue))+geom_point(color="black")+
-  geom_smooth(method = "lm", color = "blue", se = FALSE)+labs(
-    title = "Revenue Vs ADR"
+
+##5.flight_frequency Vs passenger_demand
+
+g12<-ggplot(data=df,aes(x=flight_frequency,y=passenger_demand))+geom_point(color="blue")+
+  geom_smooth(method = "lm", color = "black", se = FALSE)+labs(
+    title = "flight_frequency Vs passenger_demand"
   )
 g12
 
-#from the scatter plot we can see that Revenue and ADR have a weak 
-#positive relationship
-#we can clarify this using a above mentioned test
+#from the scatter plot we can see that flight_frequency and passenger_demand do not have an
+#association at all because the relationship line is almost a flat line
 
 #hypo
-#H0: Revenue and ADR are independent
-#H1: Revenue and ADR are not independent
+#H0: flight_frequency and passenger_demand are independent
+#H1: flight_frequency and passenger_demand are not independent
 
-#1.Kendall's tau test
-cor.test(df$Revenue, df$ADR, method = "kendall")
+#1.Pearson test
+cor.test(df$flight_frequency, df$passenger_demand, method = "pearson")
+#r = 0.05220582 suggests that flight_frequency and passenger_demand are independent
+# and it is not significant(i.e. no significant association) at 5% significant level(p = 0.4628 > 0.05)
 
-#tau = 0.2255411 this suggest that Revenue and ADR have a weak positive association.
+#2.Kendall's tau test
+cor.test(df$flight_frequency, df$passenger_demand, method = "kendall")
+#tau = 0.02824121 suggests that flight_frequency and passenger_demand are independent
+# and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.5526 > 0.05)
 
-#2.Spearman test
-cor.test(df$Revenue, df$ADR, method = "spearman")
+#3.Spearman test
+cor.test(df$flight_frequency, df$passenger_demand, method = "spearman")
+#rho  =0.0438086  suggests that flight_frequency and passenger_demand are independent
+# and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.5376 > 0.05)
 
-#rho = 0.3290704, this value suggest that Revenue and ADR have a weak positive association.
-
-#since both tests suggest that Revenue and ADR are not independent(fail to reject of H0) 
-#and they have a weak positive relationship. we can say that the relationship is linear by looking 
-#at the scatter plot.
-
+#since all tests suggest that flight_frequency and passenger_demand are independent(fail to reject H0 because all p values > 0.05) 
+#we can conclude that there is no association between flight_frequency and passenger_demand.
 
 
 
-##4.Revenue Vs MarketingSpend
+##6.route_distance Vs passenger_demand
 
-g13<-ggplot(data=df,aes(x=MarketingSpend,y=Revenue))+geom_point(color="black")+
-  geom_smooth(method = "lm", color = "blue", se = FALSE)+labs(
-    title = "Revenue Vs MarketingSpend"
+g13<-ggplot(data=df,aes(x=route_distance,y=passenger_demand))+geom_point(color="blue")+
+  geom_smooth(method = "lm", color = "black", se = FALSE)+labs(
+    title = "route_distance Vs passenger_demand"
   )
 g13
 
-#from the scatter plot we can see that Revenue and MarketingSpend have a weak 
-#positive relationship. almost looks like has no relations at all.
-#we can clarify this using a above mentioned test
+#from the scatter plot we can see that route_distance and passenger_demand do not have an
+#association at all because the relationship line is almost a flat line
 
 #hypo
-#H0: Revenue and MarketingSpend are independent
-#H1: Revenue and MarketingSpend are not independent
+#H0: route_distance and passenger_demand are independent
+#H1: route_distance and passenger_demand are not independent
 
-#1.Kendall's tau test
-cor.test(df$Revenue, df$MarketingSpend, method = "kendall")
+#1.Pearson test
+cor.test(df$route_distance, df$passenger_demand, method = "pearson")
+#r = -0.04116275 suggests that route_distance and passenger_demand are independent
+# and it is not significant(i.e. no significant association) at 5% significant level(p = 0.5628 > 0.05)
 
-#tau = -0.001731463 this suggest that Revenue and MarketingSpend have a weak negative association.
+#2.Kendall's tau test
+cor.test(df$route_distance, df$passenger_demand, method = "kendall")
+#tau = -0.01959799 suggests that route_distance and passenger_demand are independent
+# and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.6802 > 0.05)
 
-#2.Spearman test
-cor.test(df$Revenue, df$MarketingSpend, method = "spearman")
+#3.Spearman test
+cor.test(df$route_distance, df$passenger_demand, method = "spearman")
+#rho  = -0.0280432 suggests that route_distance and passenger_demand are independent
+# and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.6932 > 0.05)
 
-#rho = -0.002505322, this value suggest that Revenue and MarketingSpend have a weak negative association.
-
-#since both tests suggest that Revenue and MarketingSpend are not independent(fail to reject of H0) 
-#and they have a weak negative relationship. almost like there is no relationship at all.
-
-
-
-##5.Revenue Vs StaffCount
-
-g14<-ggplot(data=df,aes(x=StaffCount,y=Revenue))+geom_point(color="black")+
-  geom_smooth(method = "lm", color = "blue", se = FALSE)+labs(
-    title = "Revenue Vs StaffCount"
-  )
-g14
-
-#from the scatter plot we can see that Revenue and StaffCount have a strong
-#positive relationship
-#we can clarify this using a above mentioned test
-
-#hypo
-#H0: Revenue and StaffCount are independent
-#H1: Revenue and StaffCount are not independent
-
-#1.Kendall's tau test
-cor.test(df$Revenue, df$StaffCount, method = "kendall")
-
-#tau = 0.6820105 this suggest that Revenue and StaffCount have a strong positive association.
-
-#2.Spearman test
-cor.test(df$Revenue, df$StaffCount, method = "spearman")
-
-#rho = 0.8651238, this value suggest that Revenue and StaffCount have a strong positive association.
-
-#since both tests suggest that Revenue and StaffCount are not independent(fail to reject of H0) 
-#and they have a strong positive relationship. we can say that the relationship is linear by looking 
-#at the scatter plot.
+#since all tests suggest that route_distance and passenger_demand are independent(fail to reject H0 because all p values > 0.05) 
+#we can conclude that there is no association between route_distance and passenger_demand.
 
 
-
-##7.Revenue Vs GuestSatisfactionScore
-
-g16<-ggplot(data=df,aes(x=GuestSatisfactionScore,y=Revenue))+geom_point(color="black")+
-  geom_smooth(method = "lm", color = "blue", se = FALSE)+
-  labs(
-    title = "Revenue Vs GuestSatisfactionScore"
-  )
-g16
-
-#from the scatter plot we can see that Revenue and GuestSatisfactionScore have a weak
-#positive relationship
-#we can clarify this using a above mentioned test
-
-#hypo
-#H0: Revenue and GuestSatisfactionScoret are independent
-#H1: Revenue and GuestSatisfactionScore are not independent
-
-#1.Kendall's tau test
-cor.test(df$Revenue, df$GuestSatisfactionScore, method = "kendall")
-
-#tau = 0.1074324  this suggest that Revenue and GuestSatisfactionScore have a weak positive association.
-
-#2.Spearman test
-cor.test(df$Revenue, df$GuestSatisfactionScore, method = "spearman")
-
-#rho = 0.156328, this value suggest that Revenue and GuestSatisfactionScore have a weak positive association.
-
-#since both tests suggest that Revenue and GuestSatisfactionScore are not independent(fail to reject of H0) 
-#and they have a weak positive relationship. we can say that the relationship is linear by looking 
-#at the scatter plot.
-
-
-
-
-##8.Revenue Vs LoyaltyMembers
-
-g17<-ggplot(data=df,aes(x=LoyaltyMembers,y=Revenue))+geom_point(color="black")+
-  geom_smooth(method = "lm", color = "blue", se = FALSE)+
-  labs(
-    title = "Revenue Vs LoyaltyMembers"
-  )
-g17
-
-#from the scatter plot we can see that Revenue and LoyaltyMembers have a strong
-#positive relationship
-#we can clarify this using a above mentioned test
-
-#hypo
-#H0: Revenue and LoyaltyMemberst are independent
-#H1: Revenue and LoyaltyMembers are not independent
-
-#1.Kendall's tau test
-cor.test(df$Revenue, df$LoyaltyMembers, method = "kendall")
-
-#tau = 0.1074324  this suggest that Revenue and LoyaltyMembers have a strong positive association.
-
-#2.Spearman test
-cor.test(df$Revenue, df$LoyaltyMembers, method = "spearman")
-
-#rho = 0.156328, this value suggest that Revenue and LoyaltyMembers have a strong positive association.
-
-#since both tests suggest that Revenue and LoyaltyMembers are not independent(fail to reject of H0) 
-#and they have a strong positive relationship. we can say that the relationship is linear by looking 
-#at the scatter plot.
 
 
 ##now we will see how each variable is correlated with other using a correlation map
 
-df %>% str()
-corr=df %>% select(-c("HotelQualityRank")) %>% relocate(Revenue, .after = last_col())
+
+corr=df %>% relocate(passenger_demand, .after = last_col())
 
 corr_matrix <- cor(corr, use = "complete.obs")
 
@@ -687,11 +676,91 @@ ggcorrplot(corr_matrix,
            lab = TRUE, lab_size = 3.6)
 
 
-#as we can see from the correlation map RoomsAvailable is highly corrlelated with StaffCount & LoyaltyMembers
-#and also LoyaltyMembers is also highly correlated with StaffCount.
+#as we can see from the correlation no independent variable is highly correlated with other independent
+#variables, so there won't be any multicolinearity issues.
 
-#so when including these variables together in regression modelling might produce less
-#accurate results as multicolinearity is present in the full model
 
+### 3.Regression analysis
+
+#since each independent variables are in different units, to make it fair to a regression we 
+#have to standardize
+
+df_standard <- df %>% 
+  mutate(
+    airport_traffic  = as.vector(scale(airport_traffic)),
+    avg_income       = as.vector(scale(avg_income)),
+    fuel_price       = as.vector(scale(fuel_price)),
+    avg_ticket_fare  = as.vector(scale(avg_ticket_fare)),
+    flight_frequency = as.vector(scale(flight_frequency)),
+    route_distance   = as.vector(scale(route_distance)),
+    passenger_demand = as.vector(scale(passenger_demand))
+  )
+
+df_standard %>% summary()
+
+
+#from the correlation analysis we identified that there is no significant association between target variable
+#and independent variables except airport_traffic. so there is no point of carrying out a single variable linear regression
+#analysis for other variables except airport_traffic.
+
+
+#only airport_traffic as a independent variable
+lm1 <- lm(passenger_demand ~ airport_traffic , data = df_standard)
+summary(lm1)
+AIC(lm1)
+
+# since R-squared of the model is 0.1485 means airport traffic variable alone can explain
+# 14.85% variability in the passenger demand data.
+# adjusted R-squared is 0.1442 and AIC 540.4138
+
+
+#even though adding other variables to the above model systematically doesn't make much difference
+#(because they are mostly independent with the target variable)
+#we can add and see which model makes the most predictive accuracy and find out overall best model using AIC and R squared value
+
+# here we will use forward selection method
+
+lm2 <- lm(passenger_demand ~ airport_traffic+avg_income , data = df_standard)
+summary(lm2)
+AIC(lm2)
+
+#adjusted R squared = 0.1401 decreased a bit and AIC = 542.3745 increased. so we will drop the avg_income.
+
+
+lm3 <- lm(passenger_demand ~ airport_traffic+fuel_price , data = df_standard)
+summary(lm3)
+AIC(lm3)
+
+#adjusted R squared = 0.1593 increased a bit and AIC = 537.8466 dropped.so we will keep fuel_price.
+
+
+lm4 <- lm(passenger_demand ~ airport_traffic+fuel_price+avg_ticket_fare, data = df_standard)
+summary(lm4)
+AIC(lm4)
+
+#adjusted R squared = 0.1603 increased a bit and AIC = 538.5866 increased a bit.so we will keep avg_ticket_fare.
+
+
+lm5 <- lm(passenger_demand ~ airport_traffic+fuel_price+avg_ticket_fare+flight_frequency, data = df_standard)
+summary(lm5)
+AIC(lm5)
+
+#adjusted R squared =  0.1617 increased a bit and AIC = 539.2281 increased a bit.so we will keep flight_frequency.
+
+
+lm6 <- lm(passenger_demand ~ airport_traffic+fuel_price+avg_ticket_fare+flight_frequency+route_distance, data = df_standard)
+summary(lm6)
+AIC(lm6)
+
+#adjusted R squared =  0.1574 decreased and AIC = 539.2281 increased.so we will drop route_distance.
+
+
+
+#so our final model is lm5 because it has the highest accuracy, but the AIC is higher than lm3 we will not consider that
+#because the AIC increased in lm5 is considerably low.
+#so the regression equation would be
+
+# 
+# passenger_demand = 0.4133(airport_traffic) + 0.1483(fuel_price) - 0.08615(vg_ticket_fare) + 0.07601(flight_frequency) 
 
 
