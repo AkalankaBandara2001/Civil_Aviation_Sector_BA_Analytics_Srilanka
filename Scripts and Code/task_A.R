@@ -764,7 +764,7 @@ AIC(lm6)
 # passenger_demand = 0.4133(airport_traffic) + 0.1483(fuel_price) - 0.08615(avg_ticket_fare) + 0.07601(flight_frequency) 
 
 
-#Looking at the regression results, passenger demand in Sri Lanka is clearly driven more by infrastructure limits than by 
+#Looking at the regression analysis results, passenger demand in Sri Lanka is clearly driven more by infrastructure limits than by 
 #ticket pricing. Overall airport traffic turned out to be the main growth factor, carrying the highest positive coefficient 
 #in our model (0.4133, p < 0.001$). This proves that expanding physical capacity. specifically speeding up the BIA Phase II 
 #expansion project should be the top priority for aviation authorities like AASL. The second coefficient for fuel price (0.1483) 
