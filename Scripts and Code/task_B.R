@@ -134,7 +134,7 @@ cat("Modularity score:", round(modularity(communities), 3), "\n")
 
 set.seed(42)
 
-# Convert to tidygraph and attach node/edge attributes
+
 net_tidy <- as_tbl_graph(g) %>%
   activate(nodes) %>%
   mutate(
@@ -155,31 +155,29 @@ ggraph(net_tidy, layout = 'kk') +
   
   geom_node_text(aes(label = name), repel = TRUE, size = 3, fontface = "bold", max.overlaps = 20) +
   
-  # --- 1. EXPAND AXIS PADDING (Fixes left/right label cutoff) ---
+  
   scale_x_continuous(expand = expansion(mult = 0.22)) +
   scale_y_continuous(expand = expansion(mult = 0.15)) +
   
-  # --- 2. ALLOW GRAPHICS OUTSIDE PLOT BOUNDARY ---
+ 
   coord_cartesian(clip = "off") +
   
-  # --- 3. ADJUST THEME & LEGEND SPACING ---
   theme_void() +
   labs(
     title = "Sri Lanka Aviation Stakeholder Network",
-    subtitle = "Layout: Kamada-Kawai | Node size = Degree Centrality",
     caption = "Red nodes represent structural cut-nodes (articulation points)"
   ) +
   theme(
     plot.title = element_text(face = "bold", size = 13, hjust = 0.5),
     plot.subtitle = element_text(size = 9, hjust = 0.5, color = "gray30"),
     
-    # Compact legend text so it fits vertically on the right
+    
     legend.position = "right",
     legend.title = element_text(size = 8, face = "bold"),
     legend.text = element_text(size = 7),
     legend.key.size = unit(0.35, "cm"),
     legend.spacing.y = unit(0.1, "cm"),
     
-    # Margins: Top, Right (extra room for legend), Bottom, Left (extra room for labels)
+  
     plot.margin = margin(t = 15, r = 50, b = 15, l = 50)
   )
