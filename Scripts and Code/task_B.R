@@ -123,7 +123,7 @@ cat("\nDetected communities (clusters):\n")
 print(membership(communities))
 cat("Modularity score:", round(modularity(communities), 3), "\n")
 
-# as we can see, there are three clusters formed:
+# as we can see, there are four clusters formed:
 # 
 # Cluster 1 : Bandaranaike International Airport (CMB),International Airlines,Fuel Supply Companies
 #             Ground Handling Unit,Customs & Immigration
@@ -138,7 +138,8 @@ cat("Modularity score:", round(modularity(communities), 3), "\n")
 # Cluster 4: Maintenance & Engineering 
 
 
-#a Modularity score of of 0.331 indicates a moderately partitioned network with high cross-cluster interdependence.
+#A modularity score of 0.331 indicates moderate community structure. that is stakeholders form meaningfully distinct clusters 
+#rather than being uniformly interconnected.
 
 ##Visualizing
 
