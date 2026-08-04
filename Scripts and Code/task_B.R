@@ -69,13 +69,12 @@ print(results)
 
 
 # Air Traffic Control (ATC) is a useful case for interpreting centrality beyond a simple ranking. Its degree centrality
-# is only mid-range, tied with CAASL and MRIA, and its betweenness score, while present, is lower than that of the 
-# network's two articulation points. Yet the assignment brief explicitly frames ATC as "the central coordinating entity" 
-# during the high-pressure scenario, managing aircraft movements and communicating with both airlines and airport authorities. 
-# This gap between ATC's numerical centrality and its described operational role illustrates an important distinction: a node's 
+# is only on mid range, tied with CAASL and MRIA, and its betweenness score, while present, is lower than that of the 
+# network's two cut points. 
+# This gap between ATC's numerical centrality and its operational role illustrates an important distinction which is a node's 
 # importance to a network is not always proportional to how many connections it holds. ATC's significance lies in which stakeholders 
-# it sits between — airlines, the regulator, and ground operations — rather than in the raw number of its ties. This suggests that 
-# resilience planning should not treat centrality scores as the sole indicator of operational importance; some coordinating roles 
+# it sits between airlines, the regulator, and ground operations rather than in the raw number of its ties. This suggests that 
+# resilience planning should not treat centrality scores as the sole indicator of operational importance. Some coordinating roles 
 # carry criticality that a structural metric alone does not fully capture.
 
 
@@ -178,7 +177,7 @@ ggraph(net_tidy, layout = 'kk') +
   theme_void() +
   labs(
     title = "Sri Lanka Aviation Stakeholder Network",
-    caption = "Red nodes represent structural cut-nodes (articulation points)"
+    caption = "Red nodes represent structural cut nodes "
   ) +
   theme(
     plot.title = element_text(face = "bold", size = 13, hjust = 0.5),
