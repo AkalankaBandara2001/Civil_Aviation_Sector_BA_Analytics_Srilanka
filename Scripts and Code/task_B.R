@@ -39,17 +39,17 @@ cat("Average clustering coefficient:", round(transitivity(g, type = "average"), 
 
 ##calculating centrality metrics
 
-degree  <- degree(g)
-betweenness <- betweenness(g, normalized = TRUE)
-closeness  <- closeness(g, normalized = TRUE)   
-eigen_centrality  <- eigen_centrality(g)$vector          
+deg  <- degree(g)
+betw <- betweenness(g, normalized = TRUE)
+clos  <- closeness(g, normalized = TRUE)   
+eigen_cent  <- eigen_centrality(g)$vector          
 
 results <- data.frame(
-  Node          = names(degree),
-  Degree        = degree,
-  Betweenness   = round(betweenness, 4),
-  Closeness     = round(closeness, 4),
-  Eigenvector   = round(eigen_centrality, 4)
+  Node          = names(deg),
+  Degree        = deg,
+  Betweenness   = round(betw, 4),
+  Closeness     = round(clos, 4),
+  Eigenvector   = round(eigen_cent, 4)
 )
 results <- results[order(-results$Degree, -results$Betweenness), ]
 print(results)
@@ -66,6 +66,17 @@ print(results)
 # but not so often as cargo operators. and it also comparatively close to other nodes. then Fuel Supply Companies,
 # Bandaranaike International Airport (CMB),Sri Lanka Air Force  has the same degree but only Fuel Supply Companies act as
 # a between node compared to other two. and all 3 have around same closeness.
+
+
+# Air Traffic Control (ATC) is a useful case for interpreting centrality beyond a simple ranking. Its degree centrality
+# is only mid-range, tied with CAASL and MRIA, and its betweenness score, while present, is lower than that of the 
+# network's two articulation points. Yet the assignment brief explicitly frames ATC as "the central coordinating entity" 
+# during the high-pressure scenario, managing aircraft movements and communicating with both airlines and airport authorities. 
+# This gap between ATC's numerical centrality and its described operational role illustrates an important distinction: a node's 
+# importance to a network is not always proportional to how many connections it holds. ATC's significance lies in which stakeholders 
+# it sits between — airlines, the regulator, and ground operations — rather than in the raw number of its ties. This suggests that 
+# resilience planning should not treat centrality scores as the sole indicator of operational importance; some coordinating roles 
+# carry criticality that a structural metric alone does not fully capture.
 
 
 write_csv(results, "Generated Data/centrality_results.csv")
@@ -108,25 +119,27 @@ print(cut_edges)
 
 ##identify clusters of interaction
 
-communities <- cluster_louvain(g)
+communities <- cluster_louvain(g, weights = E(g)$Weight)
 cat("\nDetected communities (clusters):\n")
 print(membership(communities))
 cat("Modularity score:", round(modularity(communities), 3), "\n")
 
 # as we can see, there are three clusters formed:
 # 
-# Cluster 1 : Bandaranaike International Airport (CMB),Airport & Aviation Services SL (AASL),Fuel Supply Companies
-#             Ground Handling Unit,Customs & Immigration,Cargo Operators.
+# Cluster 1 : Bandaranaike International Airport (CMB),International Airlines,Fuel Supply Companies
+#             Ground Handling Unit,Customs & Immigration
 # and cluster 1 acts as a Ground Operations & Logistics Hub cluster.
 # 
-# Cluster 2: Mattala Rajapaksa International Airport (MRIA),International Airlines,SriLankan Airlines,Tourism Authority.
-# and cluster 2 act as a Commercial Aviation & Tourism Aviation cluster.
+# Cluster 2: Mattala Rajapaksa International Airport (MRIA),SriLankan Airlines,Tourism Authority,Cargo Operators
+#            Airport & Aviation Services SL (AASL) and cluster 2 act as a Commercial Aviation & Tourism Aviation cluster.
 # 
 # Cluster 3: Sri Lanka Air Force,Maintenance & Engineering, Civil Aviation Authority of Sri Lanka (CAASL)
-#            Mihin Lanka,Air Traffic Control (ATC). 
-# and cluster 3 act as a Airspace Control and Defence cluster.
+#            Mihin Lanka.
+#
+# Cluster 4: Maintenance & Engineering 
 
 
+#a Modularity score of of 0.331 indicates a moderately partitioned network with high cross-cluster interdependence.
 
 ##Visualizing
 
