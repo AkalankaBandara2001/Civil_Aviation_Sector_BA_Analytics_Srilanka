@@ -166,7 +166,7 @@ ggraph(net_tidy, layout = 'kk') +
   scale_size_continuous(range = c(4, 10), name = "Degree Centrality") +
   scale_fill_manual(values = c("Articulation Point" = "tomato", "Other Stakeholder" = "lightsteelblue"), name = "Node Type") +
   
-  geom_node_text(aes(label = name), repel = TRUE, size = 3, fontface = "bold", max.overlaps = 20) +
+  geom_node_text(aes(label = name), repel = TRUE, size = 2.7, fontface = "bold", max.overlaps = 20) +
   
   
   scale_x_continuous(expand = expansion(mult = 0.22)) +
