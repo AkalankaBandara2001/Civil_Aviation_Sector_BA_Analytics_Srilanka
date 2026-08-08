@@ -6,7 +6,7 @@ library(ggraph)
 library(tidygraph)
 library(ggplot2)
 
-Edges <- read_csv("Data/Question-(b)/SriLanka_Aviation_SNA_Dataset.csv")
+Edges <- read_csv("../Data/Question-(b)/SriLanka_Aviation_SNA_Dataset.csv")
 
 head(Edges)
 str(Edges)
