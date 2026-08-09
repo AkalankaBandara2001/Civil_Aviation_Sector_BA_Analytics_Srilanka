@@ -85,7 +85,15 @@ set.seed(123)
 ```
 
 # 1.Introduction
-here we analyse the given aviation dataset to 
+
+Sri Lanka’s civil aviation sector plays a major role in supporting national tourism, trade, 
+and economic growth. However, traditional decision-making in the sector has often relied on 
+fragmented data and limited analytical integration. To address these challenges, this study evaluates 
+the practical application of combining statistical modeling, Geographic Information Systems,
+and business intelligence tools to generate actionable decision support. By examining passenger 
+demand drivers, stakeholder network dynamics, spatial infrastructure planning, and real-time operational 
+monitoring, this report demonstrates howintegrated data driven frameworks can enhance operational 
+efficiency, safety, and overall competitiveness in Sri Lanka’s aviation industry.
 
 
 # 2.Task A
@@ -1150,6 +1158,12 @@ ggraph(net_tidy, layout = 'kk') +
 
 
 # 3.Task C
+
+Under the Millennium Renovation Project at Bandaranaike International Airport in Katunayake 
+upgrading air traffic surveillance infrastructure is essential for maintaining airspace 
+safety and operational flow. Task C focuses on conducting a geospatial site suitability analysis
+to determine optimal deployment locations for Primary Surveillance Radar (PSR), Secondary 
+Surveillance Radar (SSR), and Surface Movement Radar (SMR) systems.
 
 
 
