@@ -127,20 +127,20 @@ route_distance range from 341.5 to 2475.9 , with a median of 1579.1 and a mean o
 Finally our target variable, Total Passenger Demand ranges from -60240(which is impossible in real life, because counts cannot be negative) to 268128 with a median of 109586 and a mean of 107811. The first and third quartiles are 68592 and 140320 respectively.
 
 
-### dataset peek
-
 
 ```{r}
 df %>% head(10)
 
 ```
 
-## 1.univariant analysis
+## 1.Univariate analysis
 
 we will analyze each variable graphically and get initial insights from graphs then we develop hypotheses about variable distributions using graphical insights and then we will confirm them using Hypothesis testing statistics, specially normality test and other distribution tests.
 
-basic hypothesis testing ---
+basic hypothesis testing,
+
 H0: variable follows a certain distribution
+
 H1: variable does not follow a certain distribution
 
 note that we will consider significance level(alpha) 5% in these tests
@@ -160,8 +160,10 @@ g1_1
 
 from looking at the histogram it seems like the airport traffic is normally distributed.but we need to clarify the above claim using normality tests. 
 
-hypo
+hypothesis testing,
+
 H0:airport traffic variable follows a normal distribution
+
 H1:airport traffic variable does follows a normal distribution
 
 
@@ -185,7 +187,7 @@ since p-value = 0.6586 > 0.05(alpha) we fail to reject our null hypothesis. that
 
 since both tests suggest that airport traffic is normally distributed we can verify it one more time using a QQ plot where we plot theoretical normal quantiles against our data sample quantiles
 
-#3.Q-Q plot
+### c)Q-Q plot
 
 ```{r}
 g1_3<-ggqqplot(df, x = "airport_traffic", 
@@ -198,12 +200,7 @@ g1_3
 from the Q-Q we can again conclude that our airport traffic variable is normally distributed as it almost perfectly align with the theoretical normal line shown in the Q-Q plot.
 
 
-```{r}
-df %>% summary()
-
-```
-
-##2.avg_income Variable
+### 2.avg_income Variable
 
 ```{r}
 g2_1<-ggplot(data = df, aes(x = avg_income, y = ..density..)) + 
@@ -216,11 +213,13 @@ g2_1
 
 from looking at the histogram it seems like the avg_income Variable is normally distributed as it shows a bell curved shape but we need to clarify this claim using several normality tests and Q-Q plot. 
 
-hypo
+hypothesis testing,
+
 H0: avg_income variable follows a normal distribution
+
 H1: avg_income variable does follows a normal distribution
 
-#1.Shapiro-Wilk Test
+### a)Shapiro-Wilk Test
 
 ```{r}
 shapiro.test(df$avg_income)
@@ -230,7 +229,7 @@ shapiro.test(df$avg_income)
 since p-value = 0.2498 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is shapiro wilk test suggests that our avg_income variable is normally distributed.
 
 
-#2.Anderson-Darling Test
+### b)Anderson-Darling Test
 
 ```{r}
 ad.test(df$avg_income)
@@ -242,7 +241,7 @@ since p-value = 0.5256 > 0.05(alpha) we fail to reject our null hypothesis(H0). 
 since both tests suggest that average income is normally distributed we can verify this claim one more time using a Q-Q plot.
 
 
-#3.Q-Q plot
+### c)Q-Q plot
 
 ```{r}
 g2_3<-ggqqplot(df, x = "avg_income", 
@@ -256,7 +255,7 @@ from the Q-Q we can see that our avg_income variable is normally distributed as 
 
 
 
-##3.fuel_price Variable
+### 3.fuel_price Variable
 
 ```{r}
 g3_1<-ggplot(data = df, aes(x = fuel_price, y = ..density..)) + 
@@ -269,12 +268,14 @@ g3_1
 
 from looking at the histogram it seems like the fuel_price Variable is also normally distributed as the bell shape is present in the histogram but we need to clarify this claim using several normality tests and Q-Q plot. 
 
-hypo
+hypothesis testing,
+
 H0: fuel_price variable follows a normal distribution
+
 H1: fuel_price variable does follows a normal distribution
 
 
-#1.Shapiro-Wilk Test
+### a)Shapiro-Wilk Test
 
 ```{r}
 shapiro.test(df$fuel_price)
@@ -284,7 +285,7 @@ shapiro.test(df$fuel_price)
 since p-value = 0.9218 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is shapiro-wilk test statistic strongly suggests that fuel price variable is normally distributed.
 
 
-#2.Anderson-Darling Test
+### b)Anderson-Darling Test
 
 ```{r}
 ad.test(df$fuel_price)
@@ -294,7 +295,7 @@ ad.test(df$fuel_price)
 since p-value = 0.9789 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is Anderson-Darling test statistic also suggests that fuel price variable is normally distributed. since both tests suggest that fuel price is normally distributed we can verify this claim one more time using a Q-Q plot.
 
 
-#3.Q-Q plot
+### c)Q-Q plot
 
 ```{r}
 g3_3<-ggqqplot(df, x = "fuel_price", 
@@ -308,7 +309,7 @@ from the Q-Q we can see that our fuel_price variable is normally distributed as 
 
 
 
-##4.avg_ticket_fare Variable
+### 4.avg_ticket_fare Variable
 
 ```{r}
 g4_1<-ggplot(data = df, aes(x = avg_ticket_fare, y = ..density..)) + 
@@ -321,12 +322,14 @@ g4_1
 
 from looking at the histogram it seems like the avg_ticket_fare Variable is also normally distributed as the bell shape is present in the histogram but we need to clarify this claim using several normality tests and Q-Q plot. 
 
-hypo
+hypothesis testing,
+
 H0: avg_ticket_fare variable follows a normal distribution
+
 H1: avg_ticket_fare variable does follows a normal distribution
 
 
-#1.Shapiro-Wilk Test
+### a)Shapiro-Wilk Test
 
 ```{r}
 shapiro.test(df$avg_ticket_fare)
@@ -336,7 +339,7 @@ shapiro.test(df$avg_ticket_fare)
 since p-value =  0.7774 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is shapiro-wilk test strongly suggests that our avg_ticket_fare variable is normally distributed.
 
 
-#2.Anderson-Darling Test
+### b)Anderson-Darling Test
 
 ```{r}
 ad.test(df$avg_ticket_fare)
@@ -348,7 +351,7 @@ since p-value = 0.8683 > 0.05(alpha) we fail to reject our null hypothesis(H0). 
 since both tests suggest that avg_ticket_fare is normally distributed we can verify this claim one more time using a Q-Q plot
 
 
-#3.Q-Q plot
+### c)Q-Q plot
 
 ```{r}
 g4_3<-ggqqplot(df, x = "avg_ticket_fare", 
@@ -362,7 +365,7 @@ from the Q-Q we can see that our avg_ticket_fare variable is normally distribute
 
 
 
-##5.flight_frequency Variable
+### 5.flight_frequency Variable
 
 ```{r}
 g5_1<-ggplot(data = df, aes(x = flight_frequency, y = ..density..)) + 
@@ -375,12 +378,14 @@ g5_1
 
 from looking at the histogram it seems like the flight_frequency Variable is normally distributed as the bell shape is present in histogram but we need to clarify this claim using several normality tests and Q-Q plot. 
 
-hypo
+hypothesis testing,
+
 H0: flight_frequency variable follows a normal distribution
+
 H1: flight_frequency variable does follows a normal distribution
 
 
-#1.Shapiro-Wilk Test
+### a)Shapiro-Wilk Test
 
 ```{r}
 shapiro.test(df$flight_frequency)
@@ -390,7 +395,7 @@ shapiro.test(df$flight_frequency)
 since p-value = 0.6003 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is shapiro-wilk test suggests that our flight_frequency variable is normally distributed.
 
 
-#2.Anderson-Darling Test
+### b)Anderson-Darling Test
 
 ```{r}
 ad.test(df$flight_frequency)
@@ -402,7 +407,7 @@ since p-value = 0.336 > 0.05(alpha) we fail to reject our null hypothesis(H0). t
 since both tests suggest that flight_frequency is normally distributed we can verify this claim one more time using a graphical method which is Q-Q plot.
 
 
-#3.Q-Q plot
+### c)Q-Q plot
 
 ```{r}
 g5_3<-ggqqplot(df, x = "flight_frequency", 
@@ -414,7 +419,7 @@ g5_3
 
 from the Q-Q we can see that our flight_frequency variable is normally distributed as it mostly align with the theoretical normal line and there almost no deviances from theoretical normal line as shown in the Q-Q plot. and also most of data points are inside the confidence interval region, this suggest our flight_frequency variable is normally distributed.
 
-##6.route_distance
+### 6.route_distance
 
 ```{r}
 g6_1<-ggplot(data = df, aes(x = route_distance, y = ..density..)) + 
@@ -427,12 +432,14 @@ g6_1
 
 from looking at the histogram it seems like the route_distance Variable is normally distributed as the bell shape is present in histogram but we need to clarify this claim using several normality tests and Q-Q plot. 
 
-hypo
+hypothesis testing,
+
 H0: route_distance variable follows a normal distribution
+
 H1: route_distance variable does follows a normal distribution
 
 
-#1.Shapiro-Wilk Test
+### a)Shapiro-Wilk Test
 
 ```{r}
 shapiro.test(df$route_distance)
@@ -442,7 +449,7 @@ shapiro.test(df$route_distance)
 since p-value = 0.4398 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is shapiro-wilk test suggests that our route_distance variable is normally distributed.
 
 
-#2.Anderson-Darling Test
+### b)Anderson-Darling Test
 
 ```{r}
 ad.test(df$route_distance)
@@ -454,7 +461,7 @@ since p-value = 0.6498 > 0.05(alpha) we fail to reject our null hypothesis(H0). 
 since both tests suggest that route_distance is normally distributed we can verify this claim one more time using a graphical method which is Q-Q plot.
 
 
-#3.Q-Q plot
+### c)Q-Q plot
 
 ```{r}
 g6_3<-ggqqplot(df, x = "route_distance", 
@@ -468,7 +475,7 @@ from the Q-Q we can see that our route_distance variable is normally distributed
 
 
 
-##7.passenger_demand(Target) Variable
+### 7.passenger_demand(Target) Variable
 
 ```{r}
 g7_1<-ggplot(data = df, aes(x = passenger_demand,y = ..density..)) + 
@@ -481,12 +488,14 @@ g7_1
 
 from looking at the histogram it seems like the passenger_demand(Target) Variable is normally distributed as follows the symmetric bell shape which can be seen in the histogram. but we need to clarify this claim using several normality tests and Q-Q plot. 
 
-hypo
+hypothesis testing,
+
 H0: passenger_demand variable follows a normal distribution
+
 H1: passenger_demand variable does follows a normal distribution
 
 
-#1.Shapiro-Wilk Test
+### a)Shapiro-Wilk Test
 
 ```{r}
 shapiro.test(df$passenger_demand)
@@ -496,7 +505,7 @@ shapiro.test(df$passenger_demand)
 since p-value = 0.4249 > 0.05(alpha) we fail to reject our null hypothesis(H0). that is shapiro-wilk test suggests that our passenger_demand variable is normally distributed.
 
 
-#2.Anderson-Darling Test
+### b)Anderson-Darling Test
 
 ```{r}
 ad.test(df$passenger_demand)
@@ -508,7 +517,7 @@ since p-value = 0.3862 > 0.05(alpha) we fail to reject our null hypothesis(H0). 
 since both tests suggest that passenger_demand is normally distributed we can verify this claim one more time using a Q-Q plot.
 
 
-#3.Q-Q plot
+### c)Q-Q plot
 
 ```{r}
 g7_3<-ggqqplot(df, x = "passenger_demand", 
@@ -524,7 +533,7 @@ from the Q-Q we can see that our passenger_demand variable is normally distribut
 
 
 
-### 2.Bivariate Analysis(Correlation analysis)
+## 2.Bivariate Analysis(Correlation analysis)
 
 in this section we will analyse the relationship between our target variable(Total Passenger Demand) and each independent variable using graphical methods and some correlation tests.
 
@@ -544,7 +553,7 @@ df %>% summary()
 
 ```
 
-##1.airport_traffic Vs passenger_demand
+### 1.airport_traffic Vs passenger_demand
 
 ```{r}
 g8<-ggplot(data=df,aes(x=airport_traffic,y=passenger_demand))+geom_point(color="blue")+
@@ -557,11 +566,13 @@ g8
 
 from the scatter plot we can see that airport_traffic and passenger_demand have a linear a positive relationship we can clarify this using a above mentioned test
 
-hypo
+hypothesis testing,
+
 H0: airport_traffic and passenger_demand are independent
+
 H1: airport_traffic and passenger_demand are not independent
 
-#1.Pearson test
+### a)Pearson test
 
 ```{r}
 cor.test(df$airport_traffic, df$passenger_demand, method = "pearson")
@@ -570,7 +581,7 @@ cor.test(df$airport_traffic, df$passenger_demand, method = "pearson")
 
 r = 0.385401 suggests that airport_traffic and passenger_demand has a somewhat positive association and it is significant at 5% significant level
 
-#2.Kendall's tau test
+### b)Kendall's tau test
 
 
 ```{r}
@@ -580,7 +591,7 @@ cor.test(df$airport_traffic, df$passenger_demand, method = "kendall")
 
 tau = 0.2518593  suggests that airport_traffic and passenger_demand has a somewhat positive association and it is significant at 5% significant level
 
-#3.Spearman test
+### c)Spearman test
 
 ```{r}
 cor.test(df$airport_traffic, df$passenger_demand, method = "spearman")
@@ -593,7 +604,7 @@ since all tests suggest that airport_traffic and passenger_demand are not indepe
 
 
 
-##2.avg_income Vs passenger_demand
+### 2.avg_income Vs passenger_demand
 
 ```{r}
 g9<-ggplot(data=df,aes(x=avg_income,y=passenger_demand))+geom_point(color="blue")+
@@ -606,11 +617,13 @@ g9
 
 from the scatter plot we can see that avg_income and passenger_demand do not have an association at all because the relationship line is almost a flat line
 
-hypo
+hypothesis testing,
+
 H0: avg_income and passenger_demand are independent
+
 H1: avg_income and passenger_demand are not independent
 
-#1.Pearson test
+### a)Pearson test
 
 ```{r}
 cor.test(df$avg_income, df$passenger_demand, method = "pearson")
@@ -619,7 +632,7 @@ cor.test(df$avg_income, df$passenger_demand, method = "pearson")
 
 r = 0.04954933 suggests that avg_income and passenger_demand are independent and it is not significant(i.e. no significant association) at 5% significant level(p = 0.4859>0.05)
 
-#2.Kendall's tau test
+### b)Kendall's tau test
 
 ```{r}
 cor.test(df$avg_income, df$passenger_demand, method = "kendall")
@@ -628,7 +641,7 @@ cor.test(df$avg_income, df$passenger_demand, method = "kendall")
 
 tau = 0.03226131  suggests that avg_income and passenger_demand are independent and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.4975 > 0.05)
 
-#3.Spearman test
+### c)Spearman test
 
 ```{r}
 cor.test(df$avg_income, df$passenger_demand, method = "spearman")
@@ -640,7 +653,7 @@ rho  = 0.04349359 suggests that avg_income and passenger_demand are independent 
 since all tests suggest that avg_income and passenger_demand are independent(fail to reject H0 because all p values > 0.05) we can conclude that there is no association between avg_income and passenger_demand.
 
 
-##3.fuel_price Vs passenger_demand
+### 3.fuel_price Vs passenger_demand
 
 ```{r}
 g10<-ggplot(data=df,aes(x=fuel_price,y=passenger_demand))+geom_point(color="blue")+
@@ -653,11 +666,13 @@ g10
 
 from the scatter plot we can see that fuel_price and passenger_demand do not have an association at all because the relationship line is almost a flat line
 
-hypo
+hypothesis testing,
+
 H0: fuel_price and passenger_demand are independent
+
 H1: fuel_price and passenger_demand are not independent
 
-#1.Pearson test
+### a)Pearson test
 
 ```{r}
 cor.test(df$fuel_price, df$passenger_demand, method = "pearson")
@@ -666,7 +681,7 @@ cor.test(df$fuel_price, df$passenger_demand, method = "pearson")
 
 r = 0.08567551 suggests that fuel_price and passenger_demand are independent and it is not significant(i.e. no significant association) at 5% significant level(p =  0.2277 > 0.05)
 
-#2.Kendall's tau test
+### b)Kendall's tau test
 
 ```{r}
 cor.test(df$fuel_price, df$passenger_demand, method = "kendall")
@@ -675,7 +690,7 @@ cor.test(df$fuel_price, df$passenger_demand, method = "kendall")
 
 tau = 0.03939698 suggests that fuel_price and passenger_demand are independent and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.4074 > 0.05)
 
-#3.Spearman test
+### c)Spearman test
 
 ```{r}
 cor.test(df$fuel_price, df$passenger_demand, method = "spearman")
@@ -688,7 +703,7 @@ since all tests suggest that fuel_price and passenger_demand are independent(fai
 
 
 
-##4.avg_ticket_fare Vs passenger_demand
+### 4.avg_ticket_fare Vs passenger_demand
 
 ```{r}
 g11<-ggplot(data=df,aes(x=avg_ticket_fare,y=passenger_demand))+geom_point(color="blue")+
@@ -701,11 +716,13 @@ g11
 
 from the scatter plot we can see that avg_ticket_fare and passenger_demand do not have an association at all because the relationship line is almost a flat line
 
-hypo
+hypothesis testing,
+
 H0: avg_ticket_fare and passenger_demand are independent
+
 H1: avg_ticket_fare and passenger_demand are not independent
 
-#1.Pearson test
+### a)Pearson test
 
 ```{r}
 cor.test(df$avg_ticket_fare, df$passenger_demand, method = "pearson")
@@ -714,7 +731,7 @@ cor.test(df$avg_ticket_fare, df$passenger_demand, method = "pearson")
 
 r = -0.03039567 suggests that avg_ticket_fare and passenger_demand are independent and it is not significant(i.e. no significant association) at 5% significant level(p = 0.6692 > 0.05)
 
-#2.Kendall's tau test
+### b)Kendall's tau test
 
 ```{r}
 cor.test(df$avg_ticket_fare, df$passenger_demand, method = "kendall")
@@ -723,7 +740,7 @@ cor.test(df$avg_ticket_fare, df$passenger_demand, method = "kendall")
 
 tau = 0.007135678 suggests that avg_ticket_fare and passenger_demand are independent and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.8807 > 0.05)
 
-#3.Spearman test
+### c)Spearman test
 
 ```{r}
 cor.test(df$avg_ticket_fare, df$passenger_demand, method = "spearman")
@@ -737,7 +754,7 @@ since all tests suggest that avg_ticket_fare and passenger_demand are independen
 
 
 
-##5.flight_frequency Vs passenger_demand
+### 5.flight_frequency Vs passenger_demand
 
 ```{r}
 g12<-ggplot(data=df,aes(x=flight_frequency,y=passenger_demand))+geom_point(color="blue")+
@@ -750,11 +767,13 @@ g12
 
 from the scatter plot we can see that flight_frequency and passenger_demand do not have an association at all because the relationship line is almost a flat line
 
-hypo
+hypothesis testing,
+
 H0: flight_frequency and passenger_demand are independent
+
 H1: flight_frequency and passenger_demand are not independent
 
-#1.Pearson test
+### a)Pearson test
 
 ```{r}
 cor.test(df$flight_frequency, df$passenger_demand, method = "pearson")
@@ -763,7 +782,7 @@ cor.test(df$flight_frequency, df$passenger_demand, method = "pearson")
 
 r = 0.05220582 suggests that flight_frequency and passenger_demand are independent and it is not significant(i.e. no significant association) at 5% significant level(p = 0.4628 > 0.05)
 
-#2.Kendall's tau test
+### b)Kendall's tau test
 
 ```{r}
 cor.test(df$flight_frequency, df$passenger_demand, method = "kendall")
@@ -772,7 +791,7 @@ cor.test(df$flight_frequency, df$passenger_demand, method = "kendall")
 
 tau = 0.02824121 suggests that flight_frequency and passenger_demand are independent and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.5526 > 0.05)
 
-#3.Spearman test
+### c)Spearman test
 
 ```{r}
 cor.test(df$flight_frequency, df$passenger_demand, method = "spearman")
@@ -785,7 +804,7 @@ since all tests suggest that flight_frequency and passenger_demand are independe
 
 
 
-##6.route_distance Vs passenger_demand
+### 6.route_distance Vs passenger_demand
 
 
 ```{r}
@@ -799,12 +818,14 @@ g13
 
 from the scatter plot we can see that route_distance and passenger_demand do not have an association at all because the relationship line is almost a flat line
 
-hypo
+hypothesis testing,
+
 H0: route_distance and passenger_demand are independent
+
 H1: route_distance and passenger_demand are not independent
 
 
-#1.Pearson test
+### a)Pearson test
 
 
 ```{r}
@@ -814,7 +835,7 @@ cor.test(df$route_distance, df$passenger_demand, method = "pearson")
 
 r = -0.04116275 suggests that route_distance and passenger_demand are independent and it is not significant(i.e. no significant association) at 5% significant level(p = 0.5628 > 0.05)
 
-#2.Kendall's tau test
+### b)Kendall's tau test
 
 ```{r}
 cor.test(df$route_distance, df$passenger_demand, method = "kendall")
@@ -823,7 +844,7 @@ cor.test(df$route_distance, df$passenger_demand, method = "kendall")
 
 tau = -0.01959799 suggests that route_distance and passenger_demand are independent and it is not significant(i.e. no significant association) at 5% significant level(p-value = 0.6802 > 0.05)
 
-#3.Spearman test
+### c)Spearman test
 
 ```{r}
 cor.test(df$route_distance, df$passenger_demand, method = "spearman")
@@ -837,7 +858,7 @@ since all tests suggest that route_distance and passenger_demand are independent
 
 
 
-##now we will see how each variable is correlated with other using a correlation map
+Now we will see how each variable is correlated with other using a correlation map
 
 
 ```{r}
@@ -859,7 +880,7 @@ ggcorrplot(corr_matrix,
 as we can see from the correlation no independent variable is highly correlated with other independent variables, so there won't be any multicolinearity issues.
 
 
-### 3.Regression analysis
+## 3.Regression analysis
 
 since each independent variables are in different units, to make it fair to a regression we have to standardize
 
@@ -882,7 +903,7 @@ df_standard %>% summary()
 from the correlation analysis we identified that there is no significant association between target variable and independent variables except airport_traffic. so there is no point of carrying out a single variable linear regression analysis for other variables except airport_traffic.
 
 
-#only airport_traffic as a independent variable
+### Only airport_traffic as a independent variable
 
 ```{r}
 lm1 <- lm(passenger_demand ~ airport_traffic , data = df_standard)
@@ -896,7 +917,7 @@ since R-squared of the model is 0.1485 means airport traffic variable alone can 
 
 even though adding other variables to the above model systematically doesn't make much difference (because they are mostly independent with the target variable) we can add and see which model makes the most predictive accuracy and find out overall best model using AIC and R squared value
 
-# here we will use forward selection method
+Here we will use forward selection method,
 
 ```{r}
 lm2 <- lm(passenger_demand ~ airport_traffic+avg_income , data = df_standard)
@@ -941,8 +962,7 @@ AIC(lm6)
 
 ```
 
-#adjusted R squared =  0.1574 decreased and AIC = 539.2281 increased.so we will drop route_distance.
-
+adjusted R squared =  0.1574 decreased and AIC = 539.2281 increased.so we will drop route_distance.
 
 
 so our final model is lm5 because it has the highest accuracy, but the AIC is higher than lm3 we will not consider that. because the AIC increased in lm5 is considerably low. so the regression equation would be
@@ -966,7 +986,7 @@ str(Edges)
 
 ```
 
-##creating an un-directed graph
+## 1.Creating an un-directed graph
 
 ```{r}
 g <- graph_from_data_frame(Edges, directed = FALSE)
@@ -988,7 +1008,7 @@ here in the created unfirected graph as we can see that there are 15 nodes and t
 
 
 
-##calculating centrality metrics
+## 2.Calculating centrality metrics
 
 ```{r}
 deg  <- degree(g)
@@ -1019,7 +1039,7 @@ write_csv(results, "../Generated Data/centrality_results.csv")
 
 ```
 
-##identify the most influential nodes
+## 3.Identify the most influential nodes
 
 ```{r}
 top_degree <- head(results[order(-results$Degree), "Node"], 3)
@@ -1037,7 +1057,7 @@ as we can see here the most connected nodes are the, Cargo Operators ,Customs & 
 
 
 
-##identify critical bridge nodes
+## 4.Identify critical bridge nodes
 
 ```{r}
 cut_nodes <- articulation_points(g)
@@ -1053,7 +1073,7 @@ from the cut nodes and cut edges we can see that Fuel supply companies and Cargo
 
 
 
-##identify clusters of interaction
+## 4.Identify clusters of interaction
 
 ```{r}
 communities <- cluster_louvain(g, weights = E(g)$Weight)
@@ -1072,7 +1092,7 @@ Cluster 4: Maintenance & Engineering
 
 A modularity score of 0.331 indicates moderate community structure. that is stakeholders form meaningfully distinct clusters rather than being uniformly interconnected.
 
-##Visualizing
+## 5.Visualizing
 
 ```{r}
 set.seed(42)
@@ -1126,6 +1146,10 @@ ggraph(net_tidy, layout = 'kk') +
   )
 
 ```
+
+
+
+# 3.Task C
 
 
 
