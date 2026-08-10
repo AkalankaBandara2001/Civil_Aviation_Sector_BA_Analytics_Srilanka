@@ -194,3 +194,9 @@ ggraph(net_tidy, layout = 'kk') +
   
     plot.margin = margin(t = 15, r = 50, b = 15, l = 50)
   )
+
+
+
+
+
+
