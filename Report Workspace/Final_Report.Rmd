@@ -1239,8 +1239,8 @@ international traffic flows, and real-time operational alerts into a single visu
 ## 4.1 Dashboard
 
 
-```{r, echo=FALSE, fig.cap="Digitized Aerial Map for Radar Deployment at BIA", out.width="90%", fig.pos="H"}
-knitr::include_graphics("../QGIS Projects/CMB_Radar_Suitability_Map.png")
+```{r, echo=FALSE, fig.cap="PowerBI dashboard on Air traffic in Bandaranaike International Airport", out.width="90%", fig.pos="H"}
+knitr::include_graphics("../Data/Screenshots/Task D/7.final dashboard.png")
 ```
 
 

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.8.10)  10 AUG 2026 23:39
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.8.10)  10 AUG 2026 23:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1760,8 +1760,8 @@ Underfull \hbox (badness 1210) in paragraph at lines 1826--1833
 \TU/TimesNewRoman(0)/m/n/12 at Bandaranaike International Airport Task D focuses on building an interactive
  []
 
-File: ../QGIS Projects/CMB_Radar_Suitability_Map.pdf Graphic file (type pdf)
-<use ../QGIS Projects/CMB_Radar_Suitability_Map.pdf>
+File: ../Data/Screenshots/Task D/7.final dashboard.png Graphic file (type bmp)
+<../Data/Screenshots/Task D/7.final dashboard.png>
 [45] [46] (./Final_Report.aux)
  ***********
 LaTeX2e <2026-06-01>
@@ -1769,10 +1769,10 @@ L3 programming layer <2026-07-20>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 21723 strings out of 469828
- 411736 string characters out of 5468905
- 978403 words of memory out of 5000000
- 50346 multiletter control sequences out of 15000+600000
+ 21744 strings out of 469828
+ 412748 string characters out of 5468905
+ 978425 words of memory out of 5000000
+ 50364 multiletter control sequences out of 15000+600000
  631440 words of font info for 84 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  90i,12n,116p,1485b,596s stack positions out of 10000i,1000n,20000p,200000b,200000s
