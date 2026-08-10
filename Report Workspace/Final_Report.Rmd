@@ -1159,6 +1159,7 @@ ggraph(net_tidy, layout = 'kk') +
 
 # 3.Task C
 
+
 Under the Millennium Renovation Project at Bandaranaike International Airport in Katunayake 
 upgrading air traffic surveillance infrastructure is essential for maintaining airspace 
 safety and operational flow. Task C focuses on conducting a geospatial site suitability analysis
@@ -1166,17 +1167,93 @@ to determine optimal deployment locations for Primary Surveillance Radar (PSR), 
 Surveillance Radar (SSR), and Surface Movement Radar (SMR) systems.
 
 
+## 3.1 Brief Methodology and Steps Taken
+
+
+* First georeferenced the aerial image of BIA and its suburbs using ground control points (GCPs) in Google Earth and QGIS under EPSG:5234 CRS then digitized the vector layers for airport boundaries, runways, buildings, and ground infrastructure.
+* Created a spatial database named `SL_BIA_Aerial_Info` using PostgreSQL/PostGIS and added vector attribute tables with required columns (id, name, type, size) to store both spatial and non-spatial data.
+* Generated a 300m buffer from CMB Control Tower and 200m buffer from Runway Center Point (RCP) for SMR deployment, and created a 2km to 3km ring buffer from RCP within Sri Lanka Air Force (SLAF) base area for co-located PSR/SSR deployment.
+* Used geoprocessing tools like buffering, clipping, and spatial intersection in QGIS to isolate obstacle-free zones and extract exact spatial attributes.
+* Calculated the total count of existing buildings, total building area footprint, and total available land area for both radar deployment sites.
+
+ 
 
 
 
+\newpage
+
+## 3.2 Map Layout
+
+```{r, echo=FALSE, fig.cap="Digitized Aerial Map for Radar Deployment at BIA", out.width="90%", fig.pos="H"}
+knitr::include_graphics("../QGIS Projects/CMB_Radar_Suitability_Map.png")
+```
 
 
 
+## 3.3 Geospatial Findings
+
+From the geospatial data processing and spatial queries we got the following results for suitability areas:
+  
+- **SMR Zone (300m from Control Tower & 200m from RCP)**: 
+
+  * Total buildings present: 2 buildings
+  
+  * Total building occupied area: 281.495 $m^2$
+  
+  * Total suitable land area available: 4189.9338 $m^2$
+  
+- **SSR/PSR Zone (2km to 3km from RCP within SLAF Base)**:
+
+  * Total buildings present: 0 buildings
+  
+  * Total building occupied area: 0 $m^2$
+  
+  * Total suitable land area available: 11140.865 $m^2$
 
 
 
+## 3.4 Discussion & Analysis
+
+*SMR Ground Coverage: The SMR needs a clear line-of-sight to keep an eye on ground movements across the runway,
+taxiways, and aprons. The chosen spot gives great visibility with minimal obstructions, only requiring us to 
+clear 2 small existing structures (281.495 m²).
+  
+*PSR/SSR Site Choice: Setting up the co-located PSR and SSR systems 2 km to 3 km away from the runway center 
+point keeps them far enough from big airport buildings to avoid signal interference.
+  
+*SLAF Base Advantages: Placing these radars inside the Sri Lanka Air Force base solves land availability issues 
+right away. It also gives us top-tier security, reliable backup power, and easier maintenance access.
+  
+*Practical Impact: Once operational, these systems will give air traffic controllers full visibility in bad weather
+and cut down the risk of runway collisions as flight traffic keeps growing at CMB.
 
 
 
+# 4.Task D  
+  
+To help airport managers and air traffic controllers monitor day to day operations at Bandaranaike International Airport 
+Task D focuses on building an interactive Business Intelligence (BI) dashboard using Power BI and the provided flight 
+dataset (BIA_CMB_Dataset.csv). The dashboard brings together key metrics on flight schedules, delay patterns, 
+international traffic flows, and real-time operational alerts into a single visual interface.
 
+## 4.1 Dashboard
+
+
+```{r, echo=FALSE, fig.cap="Digitized Aerial Map for Radar Deployment at BIA", out.width="90%", fig.pos="H"}
+knitr::include_graphics("../QGIS Projects/CMB_Radar_Suitability_Map.png")
+```
+
+
+## 4.2 Discussion & Analysis
+
+*The overall flight status summary shows that while most flights run on schedule, delays mainly stack up 
+during peak arrival windows. Bad weather and air traffic congestion turn out to be the main causes behind 
+longer turnaround times.
+
+*Looking at traffic patterns by country, top source markets like India, the UAE, 
+and the UK drive the highest passenger volumes. This helps ground teams allocate staff and immigration counters 
+more effectively ahead of scheduled arrivals.
+
+*Having all these metrics in one live dashboard replaces messy raw spreadsheets with clear visuals, 
+allowing airport management to make fast, data-driven decisions during high-traffic periods.
 
