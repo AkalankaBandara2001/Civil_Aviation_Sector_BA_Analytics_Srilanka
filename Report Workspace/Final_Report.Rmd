@@ -1,6 +1,6 @@
 ---
 title: "CIS6008 - Analytics and Business Intelligence"
-author: "Your Name / Student ID"
+author: "Rashmi Dissanayaka/ KD-BSCSD-20-49"
 date: "`r format(Sys.Date(), '%d %B %Y')`"
 output:
   pdf_document:
@@ -15,6 +15,7 @@ mainfont: Times New Roman
 geometry: a4paper, left=1.5in, right=1in, top=1in, bottom=1in
 bibliography: references.bib
 csl: harvard.csl
+nocite: '@*'
 link-citations: true
 header-includes:
 - \usepackage{setspace}
@@ -84,16 +85,15 @@ library(tidygraph)
 set.seed(123)
 ```
 
+\newpage
+
 # 1.Introduction
 
 Sri Lanka’s civil aviation sector plays a major role in supporting national tourism, trade, 
-and economic growth. However, traditional decision-making in the sector has often relied on 
-fragmented data and limited analytical integration. To address these challenges, this study evaluates 
-the practical application of combining statistical modeling, Geographic Information Systems,
-and business intelligence tools to generate actionable decision support. By examining passenger 
-demand drivers, stakeholder network dynamics, spatial infrastructure planning, and real-time operational 
-monitoring, this report demonstrates howintegrated data driven frameworks can enhance operational 
-efficiency, safety, and overall competitiveness in Sri Lanka’s aviation industry.
+and economic growth.  This study aims to identify the practical application of combining statistical modeling, Geographic Information Systems
+and business intelligence tools to generate actionable insights by examining passenger 
+demand drivers, passenger network dynamics, spatial planning using QGIS, and real time operational 
+monitoring using PowerBI dashboards. this report demonstrates how integrated data driven frameworks can enhance operational efficiency, safety in Sri Lanka’s aviation industry [@vasigh2014].
 
 
 # 2.Task A
@@ -106,7 +106,7 @@ df <- read.csv("../Data/Question-(a)/Air_Transport_Data.csv")
 df %>% str()
 ```
 as mentioned in the data dictionary this is Air transport dataset with 200 observations with
-7 variables with all of them are numerical variables and passenger_demand being target(dependent) variable. and other variables are independent variables
+7 variables with all of them are numerical variables and passenger_demand being target(dependent) variable. and other variables are independent variables [@doganis2010].
 
 
 ```{r}
@@ -141,7 +141,7 @@ df %>% head(10)
 
 ```
 
-## 1.Univariate analysis
+## 2.1 Univariate analysis
 
 we will analyze each variable graphically and get initial insights from graphs then we develop hypotheses about variable distributions using graphical insights and then we will confirm them using Hypothesis testing statistics, specially normality test and other distribution tests.
 
@@ -153,7 +153,7 @@ H1: variable does not follow a certain distribution
 
 note that we will consider significance level(alpha) 5% in these tests
 
-if the test statistic's p-value is less than 5% we reject our null hypothesis(H0) at 5% significance level, favoring our alternative hypothesis(H1) or in other words if we can't be at least 95% sure that variable follows that certain distribution we will reject null hypothesis. if the test statistic's p-value is greater than or equal to 5% we reject our alternative hypothesis(H1) at 5% significance level favoring our null hypothesis(H0) or in other words, if we can be 95% sure that variable follows that certain distribution we will accept our null hypothesis.
+if the test statistic's p-value is less than 5% we reject our null hypothesis(H0) at 5% significance level, favoring our alternative hypothesis(H1) or in other words if we can't be at least 95% sure that variable follows that certain distribution we will reject null hypothesis. if the test statistic's p-value is greater than or equal to 5% we reject our alternative hypothesis(H1) at 5% significance level favoring our null hypothesis(H0) or in other words, if we can be 95% sure that variable follows that certain distribution we will fail to reject our null hypothesis.
 
 ### 1.airport_traffic Variable
 
@@ -172,7 +172,7 @@ hypothesis testing,
 
 H0:airport traffic variable follows a normal distribution
 
-H1:airport traffic variable does follows a normal distribution
+H1:airport traffic variable does not follow a normal distribution
 
 
 ### a)Shapiro-Wilk Test
@@ -225,7 +225,7 @@ hypothesis testing,
 
 H0: avg_income variable follows a normal distribution
 
-H1: avg_income variable does follows a normal distribution
+H1: avg_income variable does not follow a normal distribution
 
 ### a)Shapiro-Wilk Test
 
@@ -280,7 +280,7 @@ hypothesis testing,
 
 H0: fuel_price variable follows a normal distribution
 
-H1: fuel_price variable does follows a normal distribution
+H1: fuel_price variable does not follow a normal distribution
 
 
 ### a)Shapiro-Wilk Test
@@ -334,7 +334,7 @@ hypothesis testing,
 
 H0: avg_ticket_fare variable follows a normal distribution
 
-H1: avg_ticket_fare variable does follows a normal distribution
+H1: avg_ticket_fare variable does not follow a normal distribution
 
 
 ### a)Shapiro-Wilk Test
@@ -390,7 +390,7 @@ hypothesis testing,
 
 H0: flight_frequency variable follows a normal distribution
 
-H1: flight_frequency variable does follows a normal distribution
+H1: flight_frequency variable does not follow a normal distribution
 
 
 ### a)Shapiro-Wilk Test
@@ -444,7 +444,7 @@ hypothesis testing,
 
 H0: route_distance variable follows a normal distribution
 
-H1: route_distance variable does follows a normal distribution
+H1: route_distance variable does not follow a normal distribution
 
 
 ### a)Shapiro-Wilk Test
@@ -500,7 +500,7 @@ hypothesis testing,
 
 H0: passenger_demand variable follows a normal distribution
 
-H1: passenger_demand variable does follows a normal distribution
+H1: passenger_demand variable does not follow a normal distribution
 
 
 ### a)Shapiro-Wilk Test
@@ -541,11 +541,11 @@ from the Q-Q we can see that our passenger_demand variable is normally distribut
 
 
 
-## 2.Bivariate Analysis(Correlation analysis)
+## 2.2 Bivariate Analysis(Correlation analysis)
 
 in this section we will analyse the relationship between our target variable(Total Passenger Demand) and each independent variable using graphical methods and some correlation tests.
 
-here we will first inspect what kind of association is there between all independent variables and dependent variable using scatter plots. then we will use pearson correlation test as it shows linear association between two variables. but from the scatter plots if there seems to be a non linear relationship we will use kendal's tau test and spearman rho test statistics to further measeure the association.
+here we will first inspect what kind of association is there between all independent variables and dependent variable using scatter plots. then we will use pearson correlation test as it shows linear association between two variables. but from the scatter plots if there seems to be a non linear relationship we will use kendall's tau test and spearman rho test statistics to further measure the association.
 
 
 note that all test statistic scores are in between -1 and 1 and,
@@ -888,7 +888,7 @@ ggcorrplot(corr_matrix,
 as we can see from the correlation no independent variable is highly correlated with other independent variables, so there won't be any multicolinearity issues.
 
 
-## 3.Regression analysis
+## 2.3 Regression analysis
 
 since each independent variables are in different units, to make it fair to a regression we have to standardize
 
@@ -979,7 +979,7 @@ so our final model is lm5 because it has the highest accuracy, but the AIC is hi
 ### passenger_demand = 0.4133(airport_traffic) + 0.1483(fuel_price) - 0.08615(avg_ticket_fare) +0.07601(flight_frequency) 
 
 
-Looking at the regression analysis results, passenger demand in Sri Lanka is clearly driven more by infrastructure limits than by ticket pricing. Overall airport traffic turned out to be the main growth factor, carrying the highest positive coefficient in our model (0.4133, p < 0.001$). This proves that expanding physical capacity. specifically speeding up the BIA Phase II expansion project should be the top priority for aviation authorities like AASL. The second coefficient for fuel price (0.1483) likely reflects broader economic growth periods where high overall travel demand coincided with rising fuel costs, suggesting that state backed fuel hedging programs could help protect local airlines from global oil shocks. Meanwhile, average ticket fares showed a slight negative coefficient (-0.0862), which aligns with standard price elasticity. however, its impact is secondary, meaning airlines can easily handle this using dynamic yield management to attract budget tourists without hurting business travel revenue. Lastly, the positive coefficient for flight frequency (0.0760) highlights the value of schedule convenience, advising slot management teams to boost weekly flight frequencies to key source markets during peak tourism months.
+Here the regression analysis results show passenger demand in Sri Lanka is clearly driven more by inside structure limits than by ticket pricing. Overall airport traffic turned out to be the main growth factor, carrying the highest positive coefficient in our model (0.4133, p < 0.001). This proves that expanding physical capacity. specifically speeding up the BIA Phase 2 expansion project should be the top priority for aviation authorities like AASL [@caasl2021]. The second coefficient for fuel price (0.1483) likely reflects broader economic growth periods where high overall travel demand coincided with rising fuel costs, suggesting that state backed fuel hedging programs could help protect local airlines from global oil shocks. Meanwhile, average ticket fares showed a slight negative coefficient (-0.0862), which aligns with standard price elasticity. however, its impact is secondary, meaning airlines can easily handle this using dynamic yield management to attract budget tourists without hurting business travel revenue. Lastly, the positive coefficient for flight frequency (0.0760) highlights the value of schedule convenience, advising slot management teams to boost weekly flight frequencies to key source markets during peak tourism months.
 
 
 
@@ -994,7 +994,7 @@ str(Edges)
 
 ```
 
-## 1.Creating an un-directed graph
+## 3.1 Creating an undirected graph
 
 ```{r}
 g <- graph_from_data_frame(Edges, directed = FALSE)
@@ -1016,7 +1016,7 @@ here in the created unfirected graph as we can see that there are 15 nodes and t
 
 
 
-## 2.Calculating centrality metrics
+## 3.2 Calculating centrality metrics
 
 ```{r}
 deg  <- degree(g)
@@ -1036,10 +1036,10 @@ print(results)
 
 ```
 
-here the degree centrality explains the raw count of direct connections which helps to identify busy hubs. betweenness explains how often a node sits on the shortest path between other pairs, simply it helps to identify bridges. Closeness helps to explain how quickly a node can reach all others. and finally,eigenvecor centrality helps to identify influence by association. here the cargo operators have the highest degree of 7 which is the most connected and busiest node and act as a bridge as well, and also this node has the highest closeness which explains that from cargo operators node we can reach to any other nodes easily. Customs & Immigration is the 2nd most connected node which also act as a between node but not so often as cargo operators. and it also comparatively close to other nodes. then Fuel Supply Companies, Bandaranaike International Airport (CMB),Sri Lanka Air Force  has the same degree but only Fuel Supply Companies act as a between node compared to other two. and all 3 have around same closeness.
+here the degree centrality explains the raw count of direct connections which helps to identify busy hubs. betweenness explains how often a node sits on the shortest path between other pairs, simply it helps to identify bridges [@freeman1978]. Closeness helps to explain how quickly a node can reach all others. and finally,eigenvecor centrality helps to identify influence by association. here the cargo operators have the highest degree of 7 which is the most connected and busiest node and act as a bridge as well, and also this node has the highest closeness which explains that from cargo operators node we can reach to any other nodes easily. Customs & Immigration is the 2nd most connected node which also act as a between node but not so often as cargo operators. and it also comparatively close to other nodes. then Fuel Supply Companies, Bandaranaike International Airport (CMB),Sri Lanka Air Force  has the same degree but only Fuel Supply Companies act as a between node compared to other two. and all 3 have around same closeness.
 
 
-Air Traffic Control (ATC) is a useful case for interpreting centrality beyond a simple ranking. Its degree centrality is only on mid range, tied with CAASL and MRIA, and its betweenness score, while present, is lower than that of the network's two cut points. This gap between ATC's numerical centrality and its operational role illustrates an important distinction which is a node's importance to a network is not always proportional to how many connections it holds. ATC's significance lies in which stakeholders it sits between airlines, the regulator, and ground operations rather than in the raw number of its ties. This suggests that resilience planning should not treat centrality scores as the sole indicator of operational importance. Some coordinating roles carry criticality that a structural metric alone does not fully capture.
+Air Traffic Control (ATC) is a useful case for interpreting centrality because its degree centrality is only on mid range, tied with CAASL and MRIA and its betweenness score, while present, is lower than that of the network's two cut points. This gap between ATC's numerical centrality and its operational role illustrates an important distinction which is a node's importance to a network is not always proportional to how many connections it holds. ATC's significance lies in which stakeholders it sits between airlines, the regulator, and ground operations rather than in the raw number of its ties. This suggests that resilience planning should not treat centrality scores as the sole indicator of operational importance. Some coordinating roles carry criticality that a structural metric alone does not fully capture.
 
 
 ```{r}
@@ -1047,7 +1047,7 @@ write_csv(results, "../Generated Data/centrality_results.csv")
 
 ```
 
-## 3.Identify the most influential nodes
+## 3.3 Identify the most influential nodes
 
 ```{r}
 top_degree <- head(results[order(-results$Degree), "Node"], 3)
@@ -1065,7 +1065,7 @@ as we can see here the most connected nodes are the, Cargo Operators ,Customs & 
 
 
 
-## 4.Identify critical bridge nodes
+## 3.4 Identify critical bridge nodes
 
 ```{r}
 cut_nodes <- articulation_points(g)
@@ -1081,7 +1081,7 @@ from the cut nodes and cut edges we can see that Fuel supply companies and Cargo
 
 
 
-## 4.Identify clusters of interaction
+## 3.5 Identify clusters of interaction
 
 ```{r}
 communities <- cluster_louvain(g, weights = E(g)$Weight)
@@ -1098,9 +1098,9 @@ Cluster 3: Sri Lanka Air Force,Maintenance & Engineering, Civil Aviation Authori
 Cluster 4: Maintenance & Engineering 
 
 
-A modularity score of 0.331 indicates moderate community structure. that is stakeholders form meaningfully distinct clusters rather than being uniformly interconnected.
+A modularity score of 0.331 [@blondel2008] indicates moderate community structure. that is stakeholders form meaningfully distinct clusters rather than being uniformly interconnected.
 
-## 5.Visualizing
+## 3.6 Visualizing
 
 ```{r}
 set.seed(42)
@@ -1157,7 +1157,7 @@ ggraph(net_tidy, layout = 'kk') +
 
 
 
-# 3.Task C
+# 4.Task C
 
 
 Under the Millennium Renovation Project at Bandaranaike International Airport in Katunayake 
@@ -1167,7 +1167,7 @@ to determine optimal deployment locations for Primary Surveillance Radar (PSR), 
 Surveillance Radar (SSR), and Surface Movement Radar (SMR) systems.
 
 
-## 3.1 Brief Methodology and Steps Taken
+## 4.1 Brief Methodology and Steps Taken
 
 
 * First georeferenced the aerial image of BIA and its suburbs using ground control points (GCPs) in Google Earth and QGIS under EPSG:5234 CRS then digitized the vector layers for airport boundaries, runways, buildings, and ground infrastructure.
@@ -1182,15 +1182,15 @@ Surveillance Radar (SSR), and Surface Movement Radar (SMR) systems.
 
 \newpage
 
-## 3.2 Map Layout
+## 4.2 Map Layout
 
 ```{r, echo=FALSE, fig.cap="Digitized Aerial Map for Radar Deployment at BIA", out.width="90%", fig.pos="H"}
-knitr::include_graphics("../QGIS Projects/CMB_Radar_Suitability_Map.png")
+knitr::include_graphics("../QGIS Projects(Task C)/CMB_Radar_Suitability_Map.png")
 ```
 
 
 
-## 3.3 Geospatial Findings
+## 4.3 Geospatial Findings
 
 From the geospatial data processing and spatial queries we got the following results for suitability areas:
   
@@ -1212,39 +1212,38 @@ From the geospatial data processing and spatial queries we got the following res
 
 
 
-## 3.4 Discussion & Analysis
+## 4.4 Discussion & Analysis
 
-*SMR Ground Coverage: The SMR needs a clear line-of-sight to keep an eye on ground movements across the runway,
-taxiways, and aprons. The chosen spot gives great visibility with minimal obstructions, only requiring us to 
-clear 2 small existing structures (281.495 m²).
+*The SMR needs a clear line of sight to keep an eye on ground movements across the runway,
+taxiways, and aprons [@icao2018; @caasl2021]. The chosen spot gives great visibility with minimal obstructions, only requiring us to clear 2 small existing structures (281.495 m²).
   
-*PSR/SSR Site Choice: Setting up the co-located PSR and SSR systems 2 km to 3 km away from the runway center 
-point keeps them far enough from big airport buildings to avoid signal interference.
+*Setting up the co-located PSR and SSR systems 2 km to 3 km away from the runway center 
+point keeps them far enough from big airport buildings to avoid signal interference [@icao2018].
   
-*SLAF Base Advantages: Placing these radars inside the Sri Lanka Air Force base solves land availability issues 
+*Placing these radars inside the Sri Lanka Air Force base solves land availability issues 
 right away. It also gives us top-tier security, reliable backup power, and easier maintenance access.
   
-*Practical Impact: Once operational, these systems will give air traffic controllers full visibility in bad weather
+*Once operational, these systems will give air traffic controllers full visibility in bad weather
 and cut down the risk of runway collisions as flight traffic keeps growing at CMB.
 
 
 
-# 4.Task D  
+# 5.Task D  
   
 To help airport managers and air traffic controllers monitor day to day operations at Bandaranaike International Airport 
 Task D focuses on building an interactive Business Intelligence (BI) dashboard using Power BI and the provided flight 
 dataset (BIA_CMB_Dataset.csv). The dashboard brings together key metrics on flight schedules, delay patterns, 
-international traffic flows, and real-time operational alerts into a single visual interface.
+international traffic flows, and real-time operational alerts into a single visual interface [@few2006].
 
-## 4.1 Dashboard
+## 5.1 Dashboard
 
 
-```{r, echo=FALSE, fig.cap="PowerBI dashboard on Air traffic in Bandaranaike International Airport", out.width="90%", fig.pos="H"}
+```{r, echo=FALSE, fig.cap="PowerBI dashboard on Air traffic in Bandaranaike International Airport", out.width="105%", fig.pos="H"}
 knitr::include_graphics("../Data/Screenshots/Task D/7.final dashboard.png")
 ```
 
 
-## 4.2 Discussion & Analysis
+## 5.2 Discussion & Analysis
 
 *The overall flight status summary shows that while most flights run on schedule, delays mainly stack up 
 during peak arrival windows. Bad weather and air traffic congestion turn out to be the main causes behind 
@@ -1257,3 +1256,153 @@ more effectively ahead of scheduled arrivals.
 *Having all these metrics in one live dashboard replaces messy raw spreadsheets with clear visuals, 
 allowing airport management to make fast, data-driven decisions during high-traffic periods.
 
+
+
+
+\newpage
+# 6.Appedices 
+
+## Task A
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task A/1.png"}
+    \\[30pt] 
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task A/2.png"}
+\end{center}
+
+\newpage
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task A/3.png"}
+    \\[30pt] 
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task A/4.png"}
+\end{center}
+
+\newpage
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task A/7.png"}
+    \\[30pt] 
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task A/8.png"}
+\end{center}
+
+\newpage
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task A/9.png"}
+    \\[30pt] 
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task A/10.png"}
+\end{center}
+
+\newpage
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task A/11.png"}
+    \\[30pt] 
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task A/12.png"}
+\end{center}
+
+\newpage
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task A/13.png"}
+\end{center}
+
+\newpage
+
+## Task B
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task B/1.png"}
+    \\[30pt] 
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task B/2.png"}
+\end{center}
+
+\newpage
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task B/3.png"}
+    \\[30pt] 
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task B/4.png"}
+\end{center}
+
+\newpage
+
+
+
+## Task C
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task C/google_earth_pro_image.png"}
+    \\[30pt] 
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task C/QGIS_all_layers_loaded.png"}
+\end{center}
+
+\newpage
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task C/postgreSQL_integration.png"}
+    \\[30pt] 
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task C/full_pgadmin4_with_tables.png"}
+\end{center}
+
+\newpage
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task C/final QGIS with database integrated.png"}
+    \\[30pt] 
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task C/no of buildings in ssr zone.png"}
+\end{center}
+
+\newpage
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task C/area of 2 buldings in ssr zone.png"}
+    \\[30pt] 
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task C/suitable area for ssr zone.png"}
+\end{center}
+
+\newpage
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task C/suitable area for smr zone.png"}
+\end{center}
+
+
+\newpage
+
+## Task D
+
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task D/1. dtsrting powerBI.png"}
+    \\[30pt] 
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task D/2.applying changes.png"}
+\end{center}
+
+\newpage
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task D/3. DAX thing.png"}
+    \\[30pt] 
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task D/4. hour creating.png"}
+\end{center}
+
+\newpage
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task D/5.final dashboard.png"}
+    \\[30pt] 
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task D/6. destination_country col.png"}
+\end{center}
+
+\newpage
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{"../Data/Screenshots/Task D/8.final final dashboard.png"}
+\end{center}
+
+
+\newpage
+
+# 7. References
