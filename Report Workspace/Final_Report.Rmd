@@ -87,7 +87,21 @@ set.seed(123)
 
 \newpage
 
-# 1.Introduction
+# 1.Acknowledgement 
+
+First of all, I would like to sincerely thank Mr. Induranga de Silva for his valuable support, guidance, and encouragement throughout this project. His knowledge and expertise in statistical analysis and GIS helped me understand and overcome many of the technical challenges I faced while completing this assignment.
+I would also like to thank everyone who helped and supported me during the completion of this project, even in small ways. I truly appreciate the time, advice, encouragement, and assistance given to me throughout this process.
+Although I put a lot of effort into completing each part of this project, I believe that the support and guidance I received from many people played an important role in making this report a success. I am sincerely grateful to everyone who contributed to the completion of this project.
+
+
+# 2.Executive Summary
+
+This report focus on statistical modeling, social network analysis, spatial GIS database mapping, and business intelligence to evaluate operational efficiency at Bandaranaike International Airport (BIA). Regression analysis reveals that physical airport traffic capacity is the primary driver of passenger demand ($\beta = 0.4133, p < 0.001$), indicating that accelerating the BIA Phase 2 expansion project is far more vital to long term traffic growth than adjusting ticket pricing. Network centrality analysis identifies Cargo Operators and Fuel Supply Companies as critical structural cut nodes whose failure would isolate key ground handling and administrative stakeholders. Spatial site selection in QGIS and PostGIS explains that 4,189.9 m² of clear land near the Control Tower for Surface Movement Radar (SMR) and 11,140.9 m² inside Sri Lanka Air Force Base Katunayake for PSR/SSR deployment is available. Finally, Power BI dashboard tracking identifies an average flight delay of 31.40 minutes, suggesting peak arrival schedules and extreme weather conditions as the primary operational problems.  
+
+
+\newpage
+
+# 3.Introduction
 
 Sri Lanka’s civil aviation sector plays a major role in supporting national tourism, trade, 
 and economic growth.  This study aims to identify the practical application of combining statistical modeling, Geographic Information Systems
@@ -96,7 +110,7 @@ demand drivers, passenger network dynamics, spatial planning using QGIS, and rea
 monitoring using PowerBI dashboards. this report demonstrates how integrated data driven frameworks can enhance operational efficiency, safety in Sri Lanka’s aviation industry [@vasigh2014].
 
 
-# 2.Task A
+# 4.Task A
 ```{r}
 df <- read.csv("../Data/Question-(a)/Air_Transport_Data.csv")
 ```
@@ -141,7 +155,7 @@ df %>% head(10)
 
 ```
 
-## 2.1 Univariate analysis
+## 4.1 Univariate analysis
 
 we will analyze each variable graphically and get initial insights from graphs then we develop hypotheses about variable distributions using graphical insights and then we will confirm them using Hypothesis testing statistics, specially normality test and other distribution tests.
 
@@ -541,7 +555,7 @@ from the Q-Q we can see that our passenger_demand variable is normally distribut
 
 
 
-## 2.2 Bivariate Analysis(Correlation analysis)
+## 4.2 Bivariate Analysis(Correlation analysis)
 
 in this section we will analyse the relationship between our target variable(Total Passenger Demand) and each independent variable using graphical methods and some correlation tests.
 
@@ -888,7 +902,7 @@ ggcorrplot(corr_matrix,
 as we can see from the correlation no independent variable is highly correlated with other independent variables, so there won't be any multicolinearity issues.
 
 
-## 2.3 Regression analysis
+## 4.3 Regression analysis
 
 since each independent variables are in different units, to make it fair to a regression we have to standardize
 
@@ -979,11 +993,11 @@ so our final model is lm5 because it has the highest accuracy, but the AIC is hi
 ### passenger_demand = 0.4133(airport_traffic) + 0.1483(fuel_price) - 0.08615(avg_ticket_fare) +0.07601(flight_frequency) 
 
 
-Here the regression analysis results show passenger demand in Sri Lanka is clearly driven more by inside structure limits than by ticket pricing. Overall airport traffic turned out to be the main growth factor, carrying the highest positive coefficient in our model (0.4133, p < 0.001). This proves that expanding physical capacity. specifically speeding up the BIA Phase 2 expansion project should be the top priority for aviation authorities like AASL [@caasl2021]. The second coefficient for fuel price (0.1483) likely reflects broader economic growth periods where high overall travel demand coincided with rising fuel costs, suggesting that state backed fuel hedging programs could help protect local airlines from global oil shocks. Meanwhile, average ticket fares showed a slight negative coefficient (-0.0862), which aligns with standard price elasticity. however, its impact is secondary, meaning airlines can easily handle this using dynamic yield management to attract budget tourists without hurting business travel revenue. Lastly, the positive coefficient for flight frequency (0.0760) highlights the value of schedule convenience, advising slot management teams to boost weekly flight frequencies to key source markets during peak tourism months.
+Here the regression analysis results show passenger demand in Sri Lanka is clearly driven more by inside structure limits than by ticket pricing. Overall airport traffic is the main growth factor which carries the highest positive coefficient in our model (0.4133, p < 0.001). This suggests that expanding physical capacity, specifically speeding up the BIA Phase 2 expansion project should be the top priority for aviation authorities like AASL [@caasl2021]. The second coefficient for fuel price (0.1483) reflects economic growth periods where high overall travel demand aligned with rising fuel costs, suggesting that state backed fuel hedging programs could help protect local airlines from global oil shocks. And average ticket fares showed a slight negative coefficient (-0.0862) which aligns with standard price deviations. Lastly, the positive coefficient for flight frequency (0.0760) highlights the value of schedule importance, advising slot management teams to boost weekly flight frequencies to key source markets during peak tourism months will definetly affect positively on torism sector in Sri Lanka.
 
 
 
-# 3.Task B
+# 5.Task B
 
 
 ```{r}
@@ -994,7 +1008,7 @@ str(Edges)
 
 ```
 
-## 3.1 Creating an undirected graph
+## 5.1 Creating an undirected graph
 
 ```{r}
 g <- graph_from_data_frame(Edges, directed = FALSE)
@@ -1047,7 +1061,7 @@ write_csv(results, "../Generated Data/centrality_results.csv")
 
 ```
 
-## 3.3 Identify the most influential nodes
+## 5.3 Identify the most influential nodes
 
 ```{r}
 top_degree <- head(results[order(-results$Degree), "Node"], 3)
@@ -1065,7 +1079,7 @@ as we can see here the most connected nodes are the, Cargo Operators ,Customs & 
 
 
 
-## 3.4 Identify critical bridge nodes
+## 5.4 Identify critical bridge nodes
 
 ```{r}
 cut_nodes <- articulation_points(g)
@@ -1081,7 +1095,7 @@ from the cut nodes and cut edges we can see that Fuel supply companies and Cargo
 
 
 
-## 3.5 Identify clusters of interaction
+## 5.5 Identify clusters of interaction
 
 ```{r}
 communities <- cluster_louvain(g, weights = E(g)$Weight)
@@ -1157,7 +1171,7 @@ ggraph(net_tidy, layout = 'kk') +
 
 
 
-# 4.Task C
+# 6.Task C
 
 
 Under the Millennium Renovation Project at Bandaranaike International Airport in Katunayake 
@@ -1167,7 +1181,7 @@ to determine optimal deployment locations for Primary Surveillance Radar (PSR), 
 Surveillance Radar (SSR), and Surface Movement Radar (SMR) systems.
 
 
-## 4.1 Brief Methodology and Steps Taken
+## 6.1 Brief Methodology and Steps Taken
 
 
 * First georeferenced the aerial image of BIA and its suburbs using ground control points (GCPs) in Google Earth and QGIS under EPSG:5234 CRS then digitized the vector layers for airport boundaries, runways, buildings, and ground infrastructure.
@@ -1182,7 +1196,7 @@ Surveillance Radar (SSR), and Surface Movement Radar (SMR) systems.
 
 \newpage
 
-## 4.2 Map Layout
+## 6.2 Map Layout
 
 ```{r, echo=FALSE, fig.cap="Digitized Aerial Map for Radar Deployment at BIA", out.width="90%", fig.pos="H"}
 knitr::include_graphics("../QGIS Projects(Task C)/CMB_Radar_Suitability_Map.png")
@@ -1190,7 +1204,7 @@ knitr::include_graphics("../QGIS Projects(Task C)/CMB_Radar_Suitability_Map.png"
 
 
 
-## 4.3 Geospatial Findings
+## 6.3 Geospatial Findings
 
 From the geospatial data processing and spatial queries we got the following results for suitability areas:
   
@@ -1212,7 +1226,7 @@ From the geospatial data processing and spatial queries we got the following res
 
 
 
-## 4.4 Discussion & Analysis
+## 6.4 Discussion & Analysis
 
 *The SMR needs a clear line of sight to keep an eye on ground movements across the runway,
 taxiways, and aprons [@icao2018; @caasl2021]. The chosen spot gives great visibility with minimal obstructions, only requiring us to clear 2 small existing structures (281.495 m²).
@@ -1228,14 +1242,14 @@ and cut down the risk of runway collisions as flight traffic keeps growing at CM
 
 
 
-# 5.Task D  
+# 7.Task D  
   
 To help airport managers and air traffic controllers monitor day to day operations at Bandaranaike International Airport 
 Task D focuses on building an interactive Business Intelligence (BI) dashboard using Power BI and the provided flight 
 dataset (BIA_CMB_Dataset.csv). The dashboard brings together key metrics on flight schedules, delay patterns, 
 international traffic flows, and real-time operational alerts into a single visual interface [@few2006].
 
-## 5.1 Dashboard
+## 7.1 Dashboard
 
 
 ```{r, echo=FALSE, fig.cap="PowerBI dashboard on Air traffic in Bandaranaike International Airport", out.width="105%", fig.pos="H"}
@@ -1243,7 +1257,7 @@ knitr::include_graphics("../Data/Screenshots/Task D/7.final dashboard.png")
 ```
 
 
-## 5.2 Discussion & Analysis
+## 7.2 Discussion & Analysis
 
 *The overall flight status summary shows that while most flights run on schedule, delays mainly stack up 
 during peak arrival windows. Bad weather and air traffic congestion turn out to be the main causes behind 
@@ -1260,7 +1274,7 @@ allowing airport management to make fast, data-driven decisions during high-traf
 
 
 \newpage
-# 6.Appedices 
+# 8.Appedices 
 
 ## Task A
 
@@ -1405,4 +1419,4 @@ allowing airport management to make fast, data-driven decisions during high-traf
 
 \newpage
 
-# 7. References
+# 9. References
